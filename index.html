@@ -3,719 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lak — Portfolio</title>
-  <meta name="description" content="Designer & developer. Based in [City]." />
+  <title>Lakshana — Portfolio</title>
+  <meta name="description" content="Student, curious human, builder of things." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono&display=swap" rel="stylesheet" />
   <style>
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
-    /* ── Tokens ── */
     :root {
-      --bg:          #F4F1EC;
-      --surface:     #EEECEA;
-      --white:       #FDFCFA;
-      --green:       #3A5C3E;
-      --green-pale:  #E8EFE4;
-      --green-mid:   #6B8F6E;
-      --green-border:#C2D4BE;
-      --accent:      #D4C9A8;
-      --ink:         #1A1916;
-      --ink-2:       #5C574F;
-      --ink-3:       #A09890;
-      --line:        #DDD8CF;
-      --syne:        'Syne', sans-serif;
-      --news:        'Newsreader', serif;
-      --mono:        'Space Mono', monospace;
+      --bg: #F4F1EC; --surface: #EEECEA; --white: #FDFCFA;
+      --green: #3A5C3E; --green-pale: #E8EFE4; --green-mid: #6B8F6E; --green-border: #C2D4BE;
+      --accent: #D4C9A8; --ink: #1A1916; --ink-2: #5C574F; --ink-3: #A09890; --line: #DDD8CF;
+      --syne: 'Syne', sans-serif; --news: 'Newsreader', serif; --mono: 'Space Mono', monospace;
     }
+    body { font-family: var(--news); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; font-weight: 300; }
 
-    body {
-      font-family: var(--news);
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* ── Nav ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 54px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-    }
-    .logo {
-      font-family: var(--syne);
-      font-size: 0.9rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--syne);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      transition: color 0.2s;
-    }
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 52px; }
+    .logo { font-family: var(--syne); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); transition: color 0.2s; }
     .nav-links a:hover { color: var(--green); }
 
-    /* ── Hero ── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 2px solid var(--ink);
-      min-height: 460px;
-    }
-    .hero-letter {
-      padding: 3.5rem 2.5rem 3rem;
-      border-right: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: var(--white);
-    }
-    .letter-date {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--ink-3);
-      margin-bottom: 2.5rem;
-      letter-spacing: 0.04em;
-    }
-    .letter-to {
-      font-family: var(--syne);
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 1.25rem;
-    }
-    .letter-p {
-      font-family: var(--news);
-      font-size: 1rem;
-      color: var(--ink-2);
-      line-height: 1.9;
-      font-weight: 300;
-      max-width: 420px;
-    }
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
+    .hero-letter { padding: 3rem 2.5rem; border-right: 1px solid var(--line); background: var(--white); display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; }
+    .letter-date { font-family: var(--mono); font-size: 0.6rem; color: var(--ink-3); margin-bottom: 2rem; }
+    .letter-to { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
+    .letter-p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.9; }
     .letter-p em { font-style: italic; color: var(--ink); }
     .letter-sign { margin-top: 2.5rem; }
-    .letter-sign-label {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--ink-3);
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.04em;
-    }
-    .letter-name {
-      font-family: var(--syne);
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--ink);
-      letter-spacing: -0.02em;
-    }
+    .letter-sign-label { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); margin-bottom: 0.4rem; }
+    .letter-name { font-family: var(--syne); font-size: 1.5rem; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
 
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      background: var(--bg);
-    }
-    .hero-title-block {
-      padding: 3rem 2.5rem 2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    .big-role {
-      font-family: var(--syne);
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
-      font-weight: 800;
-      color: var(--ink);
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      margin-bottom: 1.25rem;
-    }
-    .big-role span { color: var(--green); }
-    .role-tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .rtag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--ink-3);
-      border: 1px solid var(--line);
-      padding: 0.25rem 0.65rem;
-      background: var(--white);
-    }
-    .hero-strip {
-      background: var(--green);
-      padding: 1.1rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .hero-strip-text {
-      font-family: var(--syne);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-    }
-    .hero-strip-btn {
-      font-family: var(--syne);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 0.45rem 1rem;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .hero-strip-btn:hover { background: rgba(255,255,255,0.1); }
+    .hero-right { display: flex; flex-direction: column; background: var(--bg); }
+    .hero-title-block { flex: 1; padding: 2.5rem 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
+    .hero-tagline { font-family: var(--syne); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--ink); line-height: 1.05; letter-spacing: -0.03em; }
+    .hero-tagline span { color: var(--green); }
+    .hero-sub { font-family: var(--news); font-size: 0.92rem; color: var(--ink-2); line-height: 1.75; font-style: italic; max-width: 320px; }
+    .hero-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .htag { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); border: 1px solid var(--line); padding: 0.25rem 0.65rem; background: var(--white); }
+    .htag-green { color: var(--green); border-color: var(--green-border); background: var(--green-pale); }
+    .hero-strip { background: var(--green); padding: 1rem 2.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .hero-strip-text { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .hero-strip-btn { font-family: var(--syne); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 0.4rem 0.9rem; }
 
-    /* ── Ticker ── */
-    .ticker {
-      background: var(--ink);
-      padding: 0.7rem 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-inner {
-      display: inline-block;
-      animation: tick 22s linear infinite;
-    }
-    @keyframes tick {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .ticker-item {
-      font-family: var(--syne);
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--bg);
-      padding: 0 2.5rem;
-    }
+    /* TICKER */
+    .ticker { background: var(--ink); padding: 0.65rem 0; overflow: hidden; white-space: nowrap; }
+    .ticker-inner { display: inline-block; animation: tick 24s linear infinite; }
+    @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg); padding: 0 2.5rem; }
     .ticker-dot { color: var(--green-mid); }
 
-    /* ── Section shared ── */
-    .sec-num {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--ink-3);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.5rem;
-    }
-    .sec-title {
-      font-family: var(--syne);
-      font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 800;
-      color: var(--ink);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 1.75rem;
-    }
-    .sec-title em {
-      font-family: var(--news);
-      font-style: italic;
-      font-weight: 300;
-      color: var(--green);
-    }
+    /* SHARED */
+    .sec-num { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+    .sec-title { font-family: var(--syne); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 800; color: var(--ink); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.75rem; }
+    .sec-title em { font-family: var(--news); font-style: italic; font-weight: 300; color: var(--green); }
+    .sec-header { display: flex; align-items: baseline; justify-content: space-between; padding: 1.5rem 2rem; border-bottom: 1px solid var(--line); background: var(--white); }
+    .sec-header-title { font-family: var(--syne); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+    .sec-header a { font-family: var(--mono); font-size: 0.58rem; color: var(--green); }
+    .sec-header-sub { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); }
+    .shelf-sublabel { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); letter-spacing: 0.06em; margin-bottom: 1rem; }
+    .goodreads-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); border-bottom: 1px solid var(--green-border); padding-bottom: 0.15rem; }
 
-    /* ── About ── */
-    .about-sec {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      border-bottom: 2px solid var(--ink);
-    }
-    .about-sidebar {
-      border-right: 1px solid var(--line);
-      padding: 2.5rem 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      background: var(--white);
-    }
-    .sidebar-item {
-      padding-bottom: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--line);
-    }
+    /* ABOUT */
+    .about-sec { display: grid; grid-template-columns: 200px 1fr; border-bottom: 2px solid var(--ink); }
+    .about-sidebar { border-right: 1px solid var(--line); padding: 2rem 1.5rem; display: flex; flex-direction: column; background: var(--white); }
+    .sidebar-item { padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
     .sidebar-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .sidebar-label {
-      font-family: var(--syne);
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 0.35rem;
-    }
-    .sidebar-val {
-      font-family: var(--news);
-      font-size: 0.88rem;
-      color: var(--ink);
-      font-style: italic;
-      line-height: 1.5;
-    }
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(15%);
-    }
-    .about-photo-placeholder {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      background: var(--accent);
-      display: flex;
-      align-items: flex-end;
-      padding: 0.75rem;
-    }
-    .photo-cap {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--ink-3);
-    }
-    .about-main {
-      padding: 3rem 3rem;
-      background: var(--bg);
-    }
-    .about-main p {
-      font-family: var(--news);
-      font-size: 0.92rem;
-      color: var(--ink-2);
-      line-height: 1.9;
-      margin-bottom: 0.9rem;
-      max-width: 540px;
-    }
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 1.5rem;
-    }
-    .sk {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--green);
-      background: var(--green-pale);
-      border: 1px solid var(--green-border);
-      padding: 0.22rem 0.65rem;
-    }
+    .sidebar-label { font-family: var(--syne); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.3rem; }
+    .sidebar-val { font-family: var(--news); font-size: 0.85rem; color: var(--ink); font-style: italic; line-height: 1.45; }
+    .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .about-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--accent); display: flex; align-items: flex-end; padding: 0.75rem; }
+    .photo-cap { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); }
+    .about-main { padding: 2.5rem; background: var(--bg); }
+    .about-main p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.9; margin-bottom: 0.9rem; max-width: 520px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+    .sk { font-family: var(--mono); font-size: 0.58rem; color: var(--green); background: var(--green-pale); border: 1px solid var(--green-border); padding: 0.22rem 0.65rem; }
 
-    /* ── Projects ── */
+    /* PROJECTS */
     .projects-sec { border-bottom: 2px solid var(--ink); }
-    .projects-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 1.75rem 2.5rem;
-      border-bottom: 1px solid var(--line);
-      background: var(--white);
-    }
-    .proj-heading {
-      font-family: var(--syne);
-      font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-    }
-    .proj-count {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--ink-3);
-    }
-    .proj-row {
-      display: grid;
-      grid-template-columns: 3.5rem 1fr auto;
-      gap: 1.5rem;
-      align-items: start;
-      padding: 1.75rem 2.5rem;
-      border-bottom: 1px solid var(--line);
-      background: var(--white);
-      transition: background 0.2s;
-    }
+    .proj-row { display: grid; grid-template-columns: 3rem 1fr auto; gap: 1.5rem; align-items: start; padding: 1.5rem 2rem; border-bottom: 1px solid var(--line); background: var(--white); transition: background 0.2s; }
     .proj-row:nth-child(even) { background: var(--bg); }
     .proj-row:hover { background: var(--green-pale); }
-    .pnum {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--ink-3);
-      padding-top: 0.3rem;
-      letter-spacing: 0.04em;
-    }
-    .proj-body h3 {
-      font-family: var(--syne);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 0.3rem;
-      letter-spacing: -0.01em;
-    }
-    .proj-body p {
-      font-family: var(--news);
-      font-size: 0.85rem;
-      color: var(--ink-2);
-      font-style: italic;
-      margin-bottom: 0.75rem;
-      line-height: 1.65;
-    }
+    .pnum { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); padding-top: 0.3rem; }
+    .proj-body h3 { font-family: var(--syne); font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+    .proj-body p { font-size: 0.85rem; color: var(--ink-2); font-style: italic; margin-bottom: 0.65rem; line-height: 1.65; }
     .ptags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-    .ptag {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--ink-3);
-      background: var(--surface);
-      border: 1px solid var(--line);
-      padding: 0.15rem 0.5rem;
-    }
-    .plink {
-      font-family: var(--syne);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--green);
-      white-space: nowrap;
-      padding-top: 0.3rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .plink:hover { opacity: 0.7; }
+    .ptag { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); background: var(--surface); border: 1px solid var(--line); padding: 0.12rem 0.45rem; }
+    .plink { font-family: var(--syne); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); white-space: nowrap; padding-top: 0.3rem; }
 
-    /* ── Now strip ── */
-    .now-sec {
-      background: var(--green-pale);
-      border-bottom: 1px solid var(--green-border);
-      padding: 1.4rem 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-    .now-label {
-      font-family: var(--syne);
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--green);
-      white-space: nowrap;
-    }
-    .now-items { display: flex; gap: 2.5rem; flex-wrap: wrap; }
-    .now-item { display: flex; align-items: baseline; gap: 0.5rem; }
-    .now-item-label {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--green-mid);
-    }
-    .now-item-val {
-      font-family: var(--news);
-      font-size: 0.85rem;
-      color: var(--ink);
-      font-style: italic;
-    }
+    /* NOW */
+    .now-sec { background: var(--green-pale); border-bottom: 1px solid var(--green-border); padding: 1.2rem 2rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .now-label { font-family: var(--syne); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+    .now-items { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .now-item { display: flex; align-items: baseline; gap: 0.45rem; }
+    .now-item-label { font-family: var(--mono); font-size: 0.56rem; color: var(--green-mid); }
+    .now-item-val { font-family: var(--news); font-size: 0.85rem; color: var(--ink); font-style: italic; }
 
-    /* ── Bookshelf ── */
-    .books-sec {
-      border-bottom: 2px solid var(--ink);
-      background: var(--white);
-    }
-    .books-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 1.75rem 2.5rem;
-      border-bottom: 1px solid var(--line);
-    }
-    .books-header a {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--green);
-      letter-spacing: 0.04em;
-      transition: opacity 0.2s;
-    }
-    .books-header a:hover { opacity: 0.7; }
-    .books-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .books-shelf {
-      padding: 2rem 2.5rem;
-      border-right: 1px solid var(--line);
-    }
-    .shelf-sublabel {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--ink-3);
-      letter-spacing: 0.06em;
-      margin-bottom: 1.25rem;
-    }
-    /* Goodreads grid widget overrides */
-    .gr_grid_container { display: flex; flex-wrap: wrap; gap: 8px; }
-    .gr_grid_book_container {
-      width: 60px !important;
-      height: 90px !important;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .gr_grid_book_container:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+    /* BOOKS */
+    .books-sec { border-bottom: 2px solid var(--ink); background: var(--white); }
+    .books-body { display: grid; grid-template-columns: 3fr 2fr; }
+    .books-shelf { padding: 2rem; border-right: 1px solid var(--line); }
+    .gr_grid_container { display: flex; flex-wrap: wrap; gap: 7px; }
+    .gr_grid_book_container { float: none !important; width: 58px !important; height: 86px !important; padding: 0 !important; overflow: hidden; border: 1px solid var(--line); transition: transform 0.2s; }
+    .gr_grid_book_container:hover { transform: translateY(-3px); }
     .gr_grid_book_container img { width: 100%; height: 100%; object-fit: cover; }
     .gr_grid_branding { display: none !important; }
+    #gr_grid_widget_1778300604 h2 { display: none !important; }
+    .books-updates { padding: 2rem; }
+    .gr-iframe { width: 100%; min-height: 320px; border: 1px solid var(--line); display: block; }
 
-    /* Updates widget */
-    .books-updates { padding: 2rem 2.5rem; }
-    #gr_updates_widget {
-      float: none !important;
-      width: 100% !important;
-      height: auto !important;
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      border-radius: 0 !important;
-    }
-    #gr_updates_widget p { font-family: var(--news) !important; }
-    #the_iframe {
-      width: 100% !important;
-      border: 1px solid var(--line) !important;
-      border-radius: 0 !important;
-    }
-    #gr_footer { display: none; }
+    /* GITHUB */
+    .github-sec { border-bottom: 2px solid var(--ink); background: var(--bg); }
+    .github-body { padding: 2rem; }
+    .github-contrib { width: 100%; border: 1px solid var(--line); display: block; margin-bottom: 1rem; }
+    .github-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .github-stats-row img { width: 100%; border: 1px solid var(--line); display: block; }
 
-    .goodreads-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 1.25rem;
-      font-family: var(--syne);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--green);
-      border-bottom: 1px solid var(--green-border);
-      padding-bottom: 0.15rem;
-    }
-
-    /* ── Hobbies ── */
-    .hobbies-sec {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 2px solid var(--ink);
-    }
-    .hobbies-left {
-      background: var(--ink);
-      padding: 3rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .hobbies-left .sec-title { color: var(--bg); }
+    /* HOBBIES */
+    .hobbies-sec { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
+    .hobbies-left { background: var(--ink); padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .hobbies-left .sec-title { color: var(--bg); margin-bottom: 0; }
     .hobbies-left .sec-title em { color: var(--green-mid); }
     .hobbies-left .sec-num { color: rgba(255,255,255,0.25); }
-    .hobbies-quote {
-      font-family: var(--news);
-      font-size: 1rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.8;
-      margin-top: auto;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
+    .hobbies-quote { font-family: var(--news); font-size: 0.92rem; font-style: italic; color: rgba(255,255,255,0.4); line-height: 1.8; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
     .hobbies-right { background: var(--bg); }
-    .hobby-item {
-      padding: 1.5rem 2.5rem;
-      border-bottom: 1px solid var(--line);
-    }
+    .hobby-item { padding: 1.25rem 2rem; border-bottom: 1px solid var(--line); }
     .hobby-item:last-child { border-bottom: none; }
-    .hobby-top {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.4rem;
-    }
-    .hobby-idx {
-      font-family: var(--mono);
-      font-size: 0.56rem;
-      color: var(--ink-3);
-    }
-    .hobby-item h3 {
-      font-family: var(--syne);
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-    .hobby-item p {
-      font-family: var(--news);
-      font-size: 0.82rem;
-      color: var(--ink-2);
-      font-style: italic;
-      line-height: 1.65;
-    }
+    .hobby-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; }
+    .hobby-idx { font-family: var(--mono); font-size: 0.54rem; color: var(--ink-3); }
+    .hobby-item h3 { font-family: var(--syne); font-size: 0.88rem; font-weight: 700; color: var(--ink); }
+    .hobby-item p { font-size: 0.82rem; color: var(--ink-2); font-style: italic; line-height: 1.65; }
 
-    /* ── Contact ── */
-    .contact-sec {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .contact-left {
-      padding: 3.5rem 2.5rem;
-      border-right: 1px solid var(--line);
-      background: var(--white);
-    }
-    .contact-left p {
-      font-family: var(--news);
-      font-size: 0.9rem;
-      color: var(--ink-2);
-      margin-bottom: 2rem;
-      line-height: 1.85;
-      max-width: 360px;
-    }
-    .email-big {
-      font-family: var(--syne);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: -0.01em;
-      border-bottom: 2px solid var(--green-border);
-      padding-bottom: 0.2rem;
-      display: inline-block;
-      transition: opacity 0.2s;
-    }
-    .email-big:hover { opacity: 0.7; }
-    .contact-right {
-      padding: 3.5rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: var(--bg);
-    }
-    .soc-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--line);
-      transition: color 0.2s;
-      cursor: pointer;
-    }
+    /* CONTACT */
+    .contact-sec { display: grid; grid-template-columns: 1fr 1fr; }
+    .contact-left { padding: 3rem 2.5rem; border-right: 1px solid var(--line); background: var(--white); }
+    .contact-left p { font-size: 0.9rem; color: var(--ink-2); margin-bottom: 2rem; line-height: 1.85; max-width: 360px; }
+    .email-big { font-family: var(--syne); font-size: 1rem; font-weight: 700; color: var(--green); border-bottom: 2px solid var(--green-border); padding-bottom: 0.2rem; display: inline-block; }
+    .contact-right { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: space-between; background: var(--bg); }
+    .soc-row { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
     .soc-row:first-child { border-top: 1px solid var(--line); }
     .soc-row:hover .soc-name { color: var(--green); }
-    .soc-name {
-      font-family: var(--syne);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-2);
-      transition: color 0.2s;
-    }
-    .soc-arr {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--ink-3);
-    }
-    .contact-note {
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--ink-3);
-      line-height: 1.7;
-      margin-top: 2rem;
-    }
+    .soc-name { font-family: var(--syne); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); transition: color 0.2s; }
+    .soc-arr { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-3); }
+    .contact-note { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); line-height: 1.7; margin-top: 2rem; }
 
-    /* ── Footer ── */
-    footer {
-      background: var(--ink);
-      padding: 1.4rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 2px solid var(--green);
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .foot-logo {
-      font-family: var(--syne);
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: var(--bg);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    footer p {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--ink-3);
-      letter-spacing: 0.06em;
-    }
+    /* FOOTER */
+    footer { background: var(--ink); padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--green); flex-wrap: wrap; gap: 0.5rem; }
+    .foot-logo { font-family: var(--syne); font-size: 0.82rem; font-weight: 800; color: var(--bg); letter-spacing: 0.06em; text-transform: uppercase; }
+    footer p { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); letter-spacing: 0.06em; }
 
-    /* ── Reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── Responsive ── */
-    @media (max-width: 700px) {
-      .hero,
-      .about-sec,
-      .hobbies-sec,
-      .contact-sec,
-      .books-body { grid-template-columns: 1fr; }
-      .hero-letter { border-right: none; border-bottom: 1px solid var(--line); }
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      .hero, .about-sec, .hobbies-sec, .contact-sec, .books-body { grid-template-columns: 1fr; }
+      .hero-letter { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; }
       .about-sidebar { border-right: none; border-bottom: 1px solid var(--line); }
       .hobbies-left { border-bottom: 1px solid var(--line); }
       .contact-left { border-right: none; border-bottom: 1px solid var(--line); }
       .books-shelf { border-right: none; border-bottom: 1px solid var(--line); }
       .nav-links { display: none; }
-      .big-role { font-size: 2.8rem; }
       .proj-row { grid-template-columns: 2.5rem 1fr; }
       .plink { display: none; }
+      .github-stats-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── Nav ── -->
   <nav>
     <span class="logo">Lak.</span>
     <ul class="nav-links">
@@ -728,89 +191,91 @@
     </ul>
   </nav>
 
-  <!-- ── Hero ── -->
   <section class="hero">
     <div class="hero-letter">
       <div>
         <div class="letter-date">May 2025 — [Your City]</div>
         <div class="letter-to">To whoever's reading this,</div>
         <p class="letter-p">
-          My name is <em>Lak</em>, and I make things for the web.<br><br>
-          I care about the work that happens between the lines — the part
-          where a decision is made not because it looks good, but because
-          it <em>feels right.</em> I'm a [your role] who takes craft seriously
-          and tries not to take myself too seriously.<br><br>
-          I read Dazai and Marcus Aurelius in the same week. I think that
-          says something about me, though I'm not sure what.<br><br>
+          My name is <em>Lakshana</em> — most people call me Lak.<br><br>
+          I'm a student who builds things, reads too much, and thinks
+          about why things are designed the way they are. I care about
+          work that is <em>considered</em> — where every small decision
+          adds up to something that actually feels right.<br><br>
+          I'm drawn to the intersection of technology and people.
+          I believe the best things are made by those who are curious
+          about more than just their craft.<br><br>
           If you're here, I hope something sticks.
         </p>
       </div>
       <div class="letter-sign">
         <div class="letter-sign-label">— with care,</div>
-        <div class="letter-name">Lak</div>
+        <div class="letter-name">Lakshana</div>
       </div>
     </div>
     <div class="hero-right">
       <div class="hero-title-block">
-        <div class="big-role">DESIGNER<br>&amp; <span>DEV.</span></div>
-        <div class="role-tags">
-          <span class="rtag">Based in [City]</span>
-          <span class="rtag">Open to work</span>
-          <span class="rtag">2025</span>
-          <a href="https://www.linkedin.com/in/lakshana-k" target="_blank" rel="noopener" class="rtag" style="color:var(--green);border-color:var(--green-border);background:var(--green-pale);">LinkedIn &#8599;</a>
-          <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="rtag" style="color:var(--green);border-color:var(--green-border);background:var(--green-pale);">GitHub &#8599;</a>
+        <div class="hero-tagline">
+          Student.<br>
+          Builder.<br>
+          <span>Curious human.</span>
+        </div>
+        <p class="hero-sub">Studying [your degree] at [your university]. Making things on the side. Always reading.</p>
+        <div class="hero-tags">
+          <span class="htag">Based in [City]</span>
+          <span class="htag">Year X student</span>
+          <a href="https://www.linkedin.com/in/lakshana-k" target="_blank" rel="noopener" class="htag htag-green">LinkedIn ↗</a>
+          <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="htag htag-green">GitHub ↗</a>
         </div>
       </div>
       <div class="hero-strip">
-        <span class="hero-strip-text">Currently available for projects</span>
+        <span class="hero-strip-text">Open to internships &amp; collaborations</span>
         <a href="#contact" class="hero-strip-btn">Say hello →</a>
       </div>
     </div>
   </section>
 
-  <!-- ── Ticker ── -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
       <span class="ticker-item">Craft <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Clarity <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Curiosity <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Design <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Code <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Good Work <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Philosophy <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Books <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Good Work <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Stoicism <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Craft <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Clarity <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Curiosity <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Design <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Code <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Good Work <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Philosophy <span class="ticker-dot">✦</span></span>
       <span class="ticker-item">Books <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Good Work <span class="ticker-dot">✦</span></span>
+      <span class="ticker-item">Stoicism <span class="ticker-dot">✦</span></span>
     </div>
   </div>
 
-  <!-- ── About ── -->
   <section id="about" class="about-sec">
     <div class="about-sidebar">
       <div class="sidebar-item">
-        <div class="sidebar-label">Role</div>
-        <div class="sidebar-val">Designer &amp; Developer</div>
+        <div class="sidebar-label">Currently</div>
+        <div class="sidebar-val">Studying [Degree] at [University]</div>
       </div>
       <div class="sidebar-item">
         <div class="sidebar-label">Based</div>
         <div class="sidebar-val">[Your City]</div>
       </div>
       <div class="sidebar-item">
-        <div class="sidebar-label">Currently</div>
-        <div class="sidebar-val">[What you're working on]</div>
+        <div class="sidebar-label">Interests</div>
+        <div class="sidebar-val">Design, philosophy, books, code</div>
       </div>
       <div class="sidebar-item">
         <div class="sidebar-label">Reading</div>
         <div class="sidebar-val">[Current book]</div>
       </div>
       <div class="sidebar-item">
-        <!-- Replace div with: <img src="your-photo.jpg" alt="Lak" class="about-photo"> -->
+        <!-- Swap this div for: <img src="your-photo.jpg" alt="Lakshana" class="about-photo"> -->
         <div class="about-photo-placeholder">
           <span class="photo-cap">your photo here</span>
         </div>
@@ -819,21 +284,9 @@
     <div class="about-main reveal">
       <div class="sec-num">001</div>
       <h2 class="sec-title">About <em>me,</em><br>honestly.</h2>
-      <p>
-        I'm a [your role] who cares about the space between good and great.
-        I've always been drawn to things that are considered — where every
-        choice means something, even the ones nobody notices.
-      </p>
-      <p>
-        Currently [what you're doing — studying / working at X / freelancing].
-        Previously [past experience]. I think the best work comes from people
-        who are curious about more than just their craft — which is probably
-        why I read Stoic philosophy and Osamu Dazai and think about both
-        constantly.
-      </p>
-      <p>
-        I'm not trying to be everything. Just trying to be good at what I do.
-      </p>
+      <p>I'm a [your degree] student at [your university] who spends most of her time thinking about how things work and why they're designed the way they are. I care about craft — the kind of attention to detail that most people don't notice, but would notice if it was missing.</p>
+      <p>Outside of uni, I build projects, read philosophy and fiction in equal measure, and think too much. I read Dazai and Marcus Aurelius in the same week once. I think that says something about me, though I'm not sure what.</p>
+      <p>I'm not trying to be everything. Just trying to be good at what I do.</p>
       <div class="skills">
         <span class="sk">JavaScript</span>
         <span class="sk">Python</span>
@@ -841,343 +294,176 @@
         <span class="sk">UI Design</span>
         <span class="sk">Figma</span>
         <span class="sk">Node.js</span>
-        <!-- Add your own skills here -->
       </div>
     </div>
   </section>
 
-  <!-- ── Projects ── -->
   <section id="projects" class="projects-sec">
-    <div class="projects-header">
-      <span class="proj-heading">Selected Work</span>
-      <span class="proj-count">00X projects</span>
+    <div class="sec-header">
+      <span class="sec-header-title">Selected Work</span>
+      <span class="sec-header-sub">00X projects</span>
     </div>
-
-    <!-- PROJECT ROW — copy and paste to add more -->
     <div class="proj-row reveal">
       <div class="pnum">01</div>
       <div class="proj-body">
         <h3>Project Name</h3>
         <p>A short, honest description. What you made and why it matters.</p>
-        <div class="ptags">
-          <span class="ptag">React</span>
-          <span class="ptag">Node.js</span>
-          <span class="ptag">2024</span>
-        </div>
+        <div class="ptags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">2024</span></div>
       </div>
       <a href="#" class="plink">View ↗</a>
     </div>
-
     <div class="proj-row reveal">
       <div class="pnum">02</div>
       <div class="proj-body">
         <h3>Another Project</h3>
         <p>The problem you solved and the outcome. Grounded and specific.</p>
-        <div class="ptags">
-          <span class="ptag">Python</span>
-          <span class="ptag">API</span>
-          <span class="ptag">2024</span>
-        </div>
+        <div class="ptags"><span class="ptag">Python</span><span class="ptag">API</span><span class="ptag">2024</span></div>
       </div>
       <a href="#" class="plink">View ↗</a>
     </div>
-
     <div class="proj-row reveal">
       <div class="pnum">03</div>
       <div class="proj-body">
         <h3>Third Project</h3>
         <p>What you built, for whom, and what you learned making it.</p>
-        <div class="ptags">
-          <span class="ptag">Figma</span>
-          <span class="ptag">Research</span>
-          <span class="ptag">2023</span>
-        </div>
+        <div class="ptags"><span class="ptag">Figma</span><span class="ptag">Research</span><span class="ptag">2023</span></div>
       </div>
       <a href="#" class="plink">View ↗</a>
     </div>
-
-    <div class="proj-row reveal">
-      <div class="pnum">04</div>
-      <div class="proj-body">
-        <h3>Fourth Project</h3>
-        <p>Add as many rows as you need — the alternating background handles them cleanly.</p>
-        <div class="ptags">
-          <span class="ptag">Swift</span>
-          <span class="ptag">iOS</span>
-          <span class="ptag">2023</span>
-        </div>
-      </div>
-      <a href="#" class="plink">View ↗</a>
-    </div>
-
   </section>
 
-  <!-- ── Now strip ── -->
   <div class="now-sec">
     <span class="now-label">Right now →</span>
     <div class="now-items">
-      <div class="now-item">
-        <span class="now-item-label">reading /</span>
-        <span class="now-item-val">[Current book]</span>
-      </div>
-      <div class="now-item">
-        <span class="now-item-label">listening /</span>
-        <span class="now-item-val">[Artist you love]</span>
-      </div>
-      <div class="now-item">
-        <span class="now-item-label">building /</span>
-        <span class="now-item-val">[Current side project]</span>
-      </div>
+      <div class="now-item"><span class="now-item-label">reading /</span><span class="now-item-val">[Current book]</span></div>
+      <div class="now-item"><span class="now-item-label">listening /</span><span class="now-item-val">[Artist you love]</span></div>
+      <div class="now-item"><span class="now-item-label">building /</span><span class="now-item-val">[Current side project]</span></div>
     </div>
   </div>
 
-  <!-- ── Bookshelf ── -->
   <section id="books" class="books-sec reveal">
-    <div class="books-header">
-      <span class="proj-heading">Bookshelf</span>
-      <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener">
-        View full shelf on Goodreads ↗
-      </a>
+    <div class="sec-header">
+      <span class="sec-header-title">Bookshelf</span>
+      <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener">View on Goodreads ↗</a>
     </div>
     <div class="books-body">
-
-      <!-- Book covers grid -->
       <div class="books-shelf">
         <div class="shelf-sublabel">Books I've read — via Goodreads</div>
-
-        <style type="text/css" media="screen">
-          .gr_grid_container { display: flex; flex-wrap: wrap; gap: 8px; }
-          .gr_grid_book_container {
-            float: none !important;
-            width: 60px !important;
-            height: 90px !important;
-            padding: 0 !important;
-            overflow: hidden;
-            border: 1px solid var(--line);
-            transition: transform 0.2s, box-shadow 0.2s;
-          }
-          .gr_grid_book_container:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-          }
-          .gr_grid_book_container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-          .gr_grid_branding { display: none !important; }
-          #gr_grid_widget_1778300604 h2 { display: none; }
+        <style>
+          .gr_grid_container{display:flex;flex-wrap:wrap;gap:7px;}
+          .gr_grid_book_container{float:none!important;width:58px!important;height:86px!important;padding:0!important;overflow:hidden;border:1px solid #DDD8CF;transition:transform 0.2s;}
+          .gr_grid_book_container:hover{transform:translateY(-3px);}
+          .gr_grid_book_container img{width:100%;height:100%;object-fit:cover;}
+          .gr_grid_branding{display:none!important;}
+          #gr_grid_widget_1778300604 h2{display:none!important;}
         </style>
-
         <div id="gr_grid_widget_1778300604">
-          <!-- Static fallback if JS blocked -->
           <div class="gr_grid_container">
-            <div class="gr_grid_book_container"><a title="No Longer Human" rel="nofollow" href="https://www.goodreads.com/book/show/194746.No_Longer_Human" target="_blank"><img alt="No Longer Human" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1422638843l/194746._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="The Setting Sun" rel="nofollow" href="https://www.goodreads.com/book/show/194740.The_Setting_Sun" target="_blank"><img alt="The Setting Sun" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1763856759l/194740._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Meditations" rel="nofollow" href="https://www.goodreads.com/book/show/30659.Meditations" target="_blank"><img alt="Meditations" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1421618636l/30659._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Letters from a Stoic" rel="nofollow" href="https://www.goodreads.com/book/show/97411.Letters_from_a_Stoic" target="_blank"><img alt="Letters from a Stoic" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1421619214l/97411._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="The Myth of Sisyphus" rel="nofollow" href="https://www.goodreads.com/book/show/91950.The_Myth_of_Sisyphus" target="_blank"><img alt="The Myth of Sisyphus" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1347654509l/91950._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="When Breath Becomes Air" rel="nofollow" href="https://www.goodreads.com/book/show/25899336-when-breath-becomes-air" target="_blank"><img alt="When Breath Becomes Air" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1492677644l/25899336._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Stoner" rel="nofollow" href="https://www.goodreads.com/book/show/166997.Stoner" target="_blank"><img alt="Stoner" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1742326950l/166997._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="No Mud, No Lotus" rel="nofollow" href="https://www.goodreads.com/book/show/20949716-no-mud-no-lotus" target="_blank"><img alt="No Mud, No Lotus" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415678146l/20949716._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Digital Minimalism" rel="nofollow" href="https://www.goodreads.com/book/show/40672036-digital-minimalism" target="_blank"><img alt="Digital Minimalism" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1549433350l/40672036._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Discipline Is Destiny" rel="nofollow" href="https://www.goodreads.com/book/show/60018575-discipline-is-destiny" target="_blank"><img alt="Discipline Is Destiny" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1656930457l/60018575._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Tiny Habits" rel="nofollow" href="https://www.goodreads.com/book/show/43261127-tiny-habits" target="_blank"><img alt="Tiny Habits" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1575588006l/43261127._SX98_.jpg" /></a></div>
-            <div class="gr_grid_book_container"><a title="Hidden Potential" rel="nofollow" href="https://www.goodreads.com/book/show/157095669-hidden-potential" target="_blank"><img alt="Hidden Potential" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1689111352l/157095669._SX98_.jpg" /></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/194746" target="_blank"><img alt="No Longer Human" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1422638843l/194746._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/194740" target="_blank"><img alt="The Setting Sun" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1763856759l/194740._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/30659" target="_blank"><img alt="Meditations" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1421618636l/30659._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/97411" target="_blank"><img alt="Letters from a Stoic" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1421619214l/97411._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/91950" target="_blank"><img alt="The Myth of Sisyphus" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1347654509l/91950._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/25899336" target="_blank"><img alt="When Breath Becomes Air" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1492677644l/25899336._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/166997" target="_blank"><img alt="Stoner" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1742326950l/166997._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/20949716" target="_blank"><img alt="No Mud No Lotus" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415678146l/20949716._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/40672036" target="_blank"><img alt="Digital Minimalism" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1549433350l/40672036._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/60018575" target="_blank"><img alt="Discipline Is Destiny" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1656930457l/60018575._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/43261127" target="_blank"><img alt="Tiny Habits" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1575588006l/43261127._SX98_.jpg"/></a></div>
+            <div class="gr_grid_book_container"><a href="https://www.goodreads.com/book/show/157095669" target="_blank"><img alt="Hidden Potential" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1689111352l/157095669._SX98_.jpg"/></a></div>
           </div>
         </div>
-
         <script src="https://www.goodreads.com/review/grid_widget/174013085.lak's%20bookshelf:%20read?cover_size=medium&hide_link=&hide_title=&num_books=32&order=d&shelf=read&sort=date_added&widget_id=1778300604" type="text/javascript" charset="utf-8"></script>
-
-        <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="goodreads-link">
-          See all books on Goodreads ↗
-        </a>
+        <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="goodreads-link">See all books ↗</a>
       </div>
-
-      <!-- Updates / activity feed -->
       <div class="books-updates">
         <div class="shelf-sublabel">Recent activity</div>
-
-        <style>
-          #gr_updates_widget {
-            float: none !important;
-            width: 100% !important;
-            height: auto !important;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            -webkit-box-shadow: none !important;
-            padding: 0 !important;
-            border-radius: 0 !important;
-          }
-          #the_iframe {
-            width: 100% !important;
-            min-height: 380px;
-            border: 1px solid var(--line) !important;
-          }
-          #gr_footer { display: none !important; }
-        </style>
-
-        <div id="gr_updates_widget">
-          <iframe
-            sandbox="allow-scripts allow-same-origin allow-popups"
-            id="the_iframe"
-            src="https://goodreads.com/widgets/user_update_widget?height=470&num_updates=4&user=174013085&width=340"
-            width="100%"
-            height="380"
-            frameborder="0"
-            title="Lak's Goodreads activity"
-          ></iframe>
-        </div>
+        <iframe class="gr-iframe" src="https://goodreads.com/widgets/user_update_widget?height=400&num_updates=4&user=174013085&width=300" frameborder="0" title="Lakshana's Goodreads activity" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
       </div>
-
     </div>
   </section>
 
-  <!-- ── GitHub Activity ── -->
-  <section id="github" class="books-sec reveal">
-    <div class="books-header">
-      <span class="proj-heading">GitHub Activity</span>
+  <section id="github" class="github-sec reveal">
+    <div class="sec-header">
+      <span class="sec-header-title">GitHub Activity</span>
       <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener">github.com/Lakshana-K ↗</a>
     </div>
-    <div style="padding:2rem 2.5rem;">
-      <div class="shelf-sublabel" style="margin-bottom:1.25rem;">Contribution graph</div>
-      <img
-        src="https://ghchart.rshah.org/3A5C3E/Lakshana-K"
-        alt="Lakshana-K's GitHub contribution chart"
-        style="width:100%;border:1px solid var(--line);display:block;"
-      />
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
-        <img
-          src="https://github-readme-stats.vercel.app/api?username=Lakshana-K&show_icons=true&hide_border=true&bg_color=FDFCFA&text_color=1A1916&icon_color=3A5C3E&title_color=1A1916&ring_color=3A5C3E"
-          alt="Lakshana-K's GitHub stats"
-          style="width:100%;border:1px solid var(--line);"
-        />
-        <img
-          src="https://github-readme-stats.vercel.app/api/top-langs/?username=Lakshana-K&layout=compact&hide_border=true&bg_color=FDFCFA&text_color=1A1916&title_color=1A1916"
-          alt="Lakshana-K's top languages"
-          style="width:100%;border:1px solid var(--line);"
-        />
+    <div class="github-body">
+      <div class="shelf-sublabel" style="margin-bottom:0.75rem;">Contribution graph</div>
+      <img class="github-contrib" src="https://ghchart.rshah.org/3A5C3E/Lakshana-K" alt="Lakshana-K GitHub contributions"/>
+      <div class="github-stats-row">
+        <img src="https://github-readme-stats.vercel.app/api?username=Lakshana-K&show_icons=true&hide_border=true&bg_color=F4F1EC&text_color=1A1916&icon_color=3A5C3E&title_color=3A5C3E&ring_color=3A5C3E&include_all_commits=true" alt="GitHub stats"/>
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Lakshana-K&layout=compact&hide_border=true&bg_color=F4F1EC&text_color=1A1916&title_color=3A5C3E" alt="Top languages"/>
       </div>
-      <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="goodreads-link" style="margin-top:1.25rem;">
-        View all repositories on GitHub ↗
-      </a>
+      <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="goodreads-link">View all repositories ↗</a>
     </div>
   </section>
 
-  <!-- ── Hobbies ── -->
   <section id="hobbies" class="hobbies-sec">
     <div class="hobbies-left">
       <div>
         <div class="sec-num">003</div>
         <h2 class="sec-title">Beyond<br>the <em>screen.</em></h2>
       </div>
-      <p class="hobbies-quote">
-        "The things you make in your off hours are the truest version of what you care about."
-      </p>
+      <p class="hobbies-quote">"The things you make in your off hours are the truest version of what you care about."</p>
     </div>
     <div class="hobbies-right">
       <div class="hobby-item reveal">
-        <div class="hobby-top">
-          <span class="hobby-idx">01</span>
-          <h3>Your Hobby</h3>
-        </div>
+        <div class="hobby-top"><span class="hobby-idx">01</span><h3>Your Hobby</h3></div>
         <p>Personal and specific. What you actually do, not what sounds good.</p>
       </div>
       <div class="hobby-item reveal">
-        <div class="hobby-top">
-          <span class="hobby-idx">02</span>
-          <h3>Reading</h3>
-        </div>
+        <div class="hobby-top"><span class="hobby-idx">02</span><h3>Reading</h3></div>
         <p>Dazai, Camus, Marcus Aurelius, Thich Nhat Hanh — all in the same week, somehow.</p>
       </div>
       <div class="hobby-item reveal">
-        <div class="hobby-top">
-          <span class="hobby-idx">03</span>
-          <h3>Your Hobby</h3>
-        </div>
-        <p>Replace this. The more honest and specific this is, the more it sounds like you.</p>
+        <div class="hobby-top"><span class="hobby-idx">03</span><h3>Your Hobby</h3></div>
+        <p>The more honest and specific this is, the more it sounds like you.</p>
       </div>
       <div class="hobby-item reveal">
-        <div class="hobby-top">
-          <span class="hobby-idx">04</span>
-          <h3>Your Hobby</h3>
-        </div>
+        <div class="hobby-top"><span class="hobby-idx">04</span><h3>Your Hobby</h3></div>
         <p>One more. Add or remove hobby items freely — each is just a div.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── Contact ── -->
   <section id="contact" class="contact-sec">
     <div class="contact-left reveal">
       <div class="sec-num">004</div>
-      <h2 class="sec-title">Let's make<br><em>something.</em></h2>
-      <p>
-        Open to freelance, full-time, and interesting conversations.
-        If something resonates, reach out — I read every message.
-      </p>
+      <h2 class="sec-title">Let's<br><em>connect.</em></h2>
+      <p>Open to internships, collaborations, and interesting conversations. If something resonates, reach out — I read every message.</p>
       <a href="mailto:you@email.com" class="email-big">you@email.com</a>
     </div>
     <div class="contact-right">
       <div>
-        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="soc-row">
-          <span class="soc-name">GitHub</span><span class="soc-arr">↗</span>
-        </a>
-        <a href="https://www.linkedin.com/in/lakshana-k" target="_blank" rel="noopener" class="soc-row">
-          <span class="soc-name">LinkedIn</span><span class="soc-arr">↗</span>
-        </a>
-        <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="soc-row">
-          <span class="soc-name">Goodreads</span><span class="soc-arr">↗</span>
-        </a>
-        <a href="/resume.pdf" target="_blank" class="soc-row">
-          <span class="soc-name">Résumé</span><span class="soc-arr">↓</span>
-        </a>
+        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="soc-row"><span class="soc-name">GitHub</span><span class="soc-arr">↗</span></a>
+        <a href="https://www.linkedin.com/in/lakshana-k" target="_blank" rel="noopener" class="soc-row"><span class="soc-name">LinkedIn</span><span class="soc-arr">↗</span></a>
+        <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="soc-row"><span class="soc-name">Goodreads</span><span class="soc-arr">↗</span></a>
+        <a href="/resume.pdf" target="_blank" class="soc-row"><span class="soc-name">Résumé</span><span class="soc-arr">↓</span></a>
       </div>
-      <p class="contact-note">
-        Response time is usually within 48 hours.<br>
-        Based in [City] — open to remote worldwide.
-      </p>
+      <p class="contact-note">Based in [City] — open to remote &amp; hybrid opportunities.</p>
     </div>
   </section>
 
-  <!-- ── Footer ── -->
   <footer>
-    <span class="foot-logo">Lak.</span>
+    <span class="foot-logo">Lakshana.</span>
     <p>© 2025 — Made with care.</p>
   </footer>
 
   <script>
-    // Scroll reveal
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      }),
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
-    document.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.transitionDelay = `${(i % 3) * 80}ms`;
-      observer.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 3) * 80}ms`; observer.observe(el); });
 
-    // Active nav on scroll
     const sections = document.querySelectorAll('section[id]');
     const links = document.querySelectorAll('.nav-links a');
     const navObs = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          links.forEach(a => a.style.color = '');
-          const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-          if (active) active.style.color = 'var(--green)';
-        }
-      }),
-      { threshold: 0.5 }
+      entries => entries.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.style.color = ''); const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`); if (active) active.style.color = 'var(--green)'; } }),
+      { threshold: 0.4 }
     );
     sections.forEach(s => navObs.observe(s));
   </script>
-
 </body>
 </html>

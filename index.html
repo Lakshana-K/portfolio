@@ -21,6 +21,7 @@
       --syne: 'Syne', sans-serif; --news: 'Newsreader', serif; --mono: 'Space Mono', monospace;
     }
     body { font-family: var(--news); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; font-weight: 300; }
+    .page { max-width: 1280px; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); min-height: 100vh; }
 
 
     /* NAV */
@@ -31,7 +32,7 @@
     .nav-links a:hover { color: var(--green); }
 
     /* HERO */
-    .hero { display: grid; grid-template-columns: 55fr 45fr; border-bottom: 2px solid var(--ink); }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
     .hero-letter { padding: 3rem 2.5rem; border-right: 1px solid var(--line); background: var(--white); display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; }
     .letter-date { font-family: var(--mono); font-size: 0.6rem; color: var(--ink-3); margin-bottom: 2rem; }
     .letter-to { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
@@ -134,7 +135,8 @@
     /* GITHUB */
     .github-sec { border-bottom: 2px solid var(--ink); background: var(--bg); }
     .github-body { padding: 2rem; }
-    .github-contrib { width: 100%; border: 1px solid var(--line); display: block; margin-bottom: 1rem; }
+    .github-contrib-wrap { background: var(--white); border: 1px solid var(--line); padding: 1.25rem; margin-bottom: 1rem; overflow-x: auto; }
+    .github-contrib { width: 100%; min-width: 600px; display: block; }
     .github-repos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
     .repo-card { border: 1px solid var(--line); padding: 1.25rem; background: var(--white); transition: background 0.2s; }
     .repo-card:hover { background: var(--green-pale); }
@@ -197,6 +199,7 @@
 </head>
 <body>
 
+  <div class="page">
   <nav>
     <span class="logo">Lak.</span>
     <ul class="nav-links">
@@ -394,7 +397,19 @@
         <script src="https://www.goodreads.com/review/grid_widget/174013085.lak's%20bookshelf:%20read?cover_size=medium&hide_link=&hide_title=&num_books=32&order=d&shelf=read&sort=date_added&widget_id=1778300604" type="text/javascript" charset="utf-8"></script>
         <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="goodreads-link">See all books ↗</a>
       </div>
-
+      <div class="books-quotes">
+        <div class="shelf-sublabel">Quotes I've saved</div>
+        <div id="gr_quote_body" style="font-family:var(--news);font-size:0.88rem;color:var(--ink-2);line-height:1.8;"></div>
+        <script src="https://www.goodreads.com/quotes/widget/174013085-lak?v=2" type="text/javascript"></script>
+        <style>
+          #gr_quote_body { }
+          #gr_quote_body .quoteText { font-style:italic; color:var(--ink-2); border-left:2px solid var(--green-border); padding-left:1rem; margin-bottom:1.25rem; display:block; font-size:0.85rem; line-height:1.8; }
+          #gr_quote_body .quoteText .authorOrTitle { display:block; font-style:normal; font-family:var(--mono); font-size:0.58rem; color:var(--ink-3); margin-top:0.4rem; }
+          #gr_quote_body a { color:var(--green); text-decoration:none; }
+          .quotesWidgetContainer, .quotesWidgetHeader, .gr_quotes_footer { display:none !important; }
+        </style>
+        <a href="https://www.goodreads.com/quotes/list/174013085-lak" target="_blank" rel="noopener" class="goodreads-link" style="margin-top:1rem;">See all quotes ↗</a>
+      </div>
     </div>
   </section>
 
@@ -405,7 +420,9 @@
     </div>
     <div class="github-body">
       <div class="shelf-sublabel" style="margin-bottom:0.75rem;">Contribution graph</div>
-      <img class="github-contrib" src="https://ghchart.rshah.org/3A5C3E/Lakshana-K" alt="Lakshana-K GitHub contributions"/>
+      <div class="github-contrib-wrap">
+        <img class="github-contrib" src="https://ghchart.rshah.org/3A5C3E/Lakshana-K" alt="Lakshana-K GitHub contributions"/>
+      </div>
       <div class="github-repos">
         <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="repo-card">
           <h4>Project Name ↗</h4>
@@ -533,5 +550,6 @@
       }
     })();
   </script>
+  </div>
 </body>
 </html>

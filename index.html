@@ -150,7 +150,6 @@
     #gr_grid_widget_1778300604 h2 { display: none !important; }
     .books-updates { padding: 2rem; }
 
-
     /* GITHUB */
     .github-sec { border-bottom: 2px solid var(--ink); background: var(--bg); }
     .github-body { padding: 2rem; }
@@ -220,7 +219,6 @@
       #status-quote-r { display: none; }
       .status-center { flex-direction: row; gap: 0.75rem; }
     }
-
 
     /* Garden canvas */
     .garden-wrap { position: relative; width: 100%; height: 120px; overflow: visible; }
@@ -560,7 +558,7 @@
       </div>
       <div class="hobby-item reveal">
         <div class="hobby-top"><span class="hobby-idx">04</span><h3>Drawing</h3></div>
-        <p>Mostly just doodling in the margins of things. Nothing serious — just a way to stay present and make something with my hands.</p>
+        <p>Mostly just doodling in the margins of things. Nothing serious — just a way to stay present and make something with my hands. :-&#41;</p>
       </div>
     </div>
   </section>
@@ -570,7 +568,7 @@
       <div class="sec-num">004</div>
       <h2 class="sec-title">Let's<br><em>connect.</em></h2>
       <p>Open to internships, collaborations, and interesting conversations. If something resonates, reach out — I read every message.</p>
-      <a href="mailto:you@email.com" class="email-big">you@email.com</a>
+      <a href="mailto:mklakshana007@gmail.com" class="email-big">mklakshana007@gmail.com</a>
     </div>
     <div class="contact-right">
       <div>
@@ -579,7 +577,7 @@
         <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="soc-row"><span class="soc-name">Goodreads</span><span class="soc-arr">↗</span></a>
         <a href="/resume.pdf" target="_blank" class="soc-row"><span class="soc-name">Résumé</span><span class="soc-arr">↓</span></a>
       </div>
-      <p class="contact-note">Based in Singapore — open to remote &amp; hybrid opportunities.</p>
+      <p class="contact-note">Based in Singapore — open to opportunities.</p>
     </div>
   </section>
 
@@ -605,7 +603,6 @@
   </script>
 
   <script>
-    // Auto-sync currently reading from Goodreads "currently-reading" shelf RSS
     (async () => {
       const setReading = (text) => {
         document.querySelectorAll('#now-reading-val, #sidebar-reading-val').forEach(el => {
@@ -614,9 +611,7 @@
       };
       try {
         const shelfUrl = 'https://www.goodreads.com/review/list_rss/174013085?shelf=currently-reading';
-        const res = await fetch(
-          'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(shelfUrl)
-        );
+        const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(shelfUrl));
         const data = await res.json();
         const items = data.items || [];
         if (items.length > 0) {
@@ -646,49 +641,35 @@
       }
     })();
 
-    // Photo toggle with fade
     function switchPhoto(n) {
       document.querySelectorAll('.photo-slot').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.photo-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('photo-' + n).classList.add('active');
       document.querySelectorAll('.photo-btn')[n-1].classList.add('active');
     }
-    // Auto-cycle every 4 seconds
     let autoCycle = setInterval(() => {
       const current = document.querySelector('.photo-btn.active');
       const idx = [...document.querySelectorAll('.photo-btn')].indexOf(current);
       const next = (idx + 1) % document.querySelectorAll('.photo-btn').length;
       switchPhoto(next + 1);
     }, 4000);
-    // Pause on manual click
     document.querySelectorAll('.photo-btn').forEach(btn => {
       btn.addEventListener('click', () => clearInterval(autoCycle));
     });
   </script>
 
   <script>
-  // Interactive botanical canvas on hero
   (function() {
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let mouse = { x: 0.5, y: 0.5 };
     let time = 0;
-
-    function resize() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
+    function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
     resize();
     window.addEventListener('resize', resize);
-
     const hero = canvas.closest('.hero-right') || canvas.parentElement;
-    hero.addEventListener('mousemove', e => {
-      const r = hero.getBoundingClientRect();
-      mouse.x = (e.clientX - r.left) / r.width;
-      mouse.y = (e.clientY - r.top) / r.height;
-    });
-
+    hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); mouse.x = (e.clientX - r.left) / r.width; mouse.y = (e.clientY - r.top) / r.height; });
     const plants = [
       { x: 0.15, baseY: 1, height: 0.55, phase: 0 },
       { x: 0.38, baseY: 1, height: 0.72, phase: 1.2 },
@@ -697,77 +678,11 @@
       { x: 0.90, baseY: 1, height: 0.38, phase: 0.3 },
       { x: 0.05, baseY: 1, height: 0.28, phase: 1.8 },
     ];
-
     const palette = ['#4A6741','#6B8F6E','#7A9C73','#8FAF88','#3A5C3E','#C2D4BE'];
-
-    function drawStem(x, y, endX, endY, w, color) {
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      const cpX = x + (endX - x) * 0.3 + (mouse.x - 0.5) * 18;
-      const cpY = y + (endY - y) * 0.6;
-      ctx.quadraticCurveTo(cpX, cpY, endX, endY);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = w;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-    }
-
-    function drawLeaf(x, y, angle, size, color, alpha) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(angle);
-      ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(size * 0.6, -size * 0.3, size * 0.9, -size * 0.15, size, 0);
-      ctx.bezierCurveTo(size * 0.9, size * 0.15, size * 0.6, size * 0.3, 0, 0);
-      ctx.fillStyle = color;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(size * 0.85, 0);
-      ctx.strokeStyle = palette[4];
-      ctx.lineWidth = 0.5;
-      ctx.globalAlpha = alpha * 0.5;
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    function drawPlant(p, t) {
-      const W = canvas.width, H = canvas.height;
-      const bx = p.x * W;
-      const by = H;
-      const sway = Math.sin(t * 0.8 + p.phase) * 6 + (mouse.x - 0.5) * 14;
-      const tipX = bx + sway;
-      const tipY = H - p.height * H;
-      const col = palette[Math.floor(p.phase * 2) % palette.length];
-      drawStem(bx, by, tipX, tipY, 1.2, col);
-      const leafCount = Math.floor(p.height * 6) + 2;
-      for (let i = 1; i <= leafCount; i++) {
-        const t2 = i / (leafCount + 1);
-        const lx = bx + (tipX - bx) * t2;
-        const ly = by + (tipY - by) * t2;
-        const side = i % 2 === 0 ? 1 : -1;
-        const leafSway = Math.sin(t * 0.9 + p.phase + i) * 0.08;
-        const baseAngle = side * (Math.PI * 0.35) + leafSway;
-        const sz = (14 + Math.random() * 0 + p.height * 18) * (0.5 + t2 * 0.7);
-        const lCol = palette[(i + Math.floor(p.phase)) % palette.length];
-        drawLeaf(lx, ly, baseAngle, sz, lCol, 0.35 + t2 * 0.25);
-      }
-      ctx.beginPath();
-      ctx.arc(tipX, tipY, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = palette[4];
-      ctx.globalAlpha = 0.5;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      time += 0.012;
-      plants.forEach(p => drawPlant(p, time));
-      requestAnimationFrame(animate);
-    }
+    function drawStem(x, y, endX, endY, w, color) { ctx.beginPath(); ctx.moveTo(x, y); const cpX = x + (endX - x) * 0.3 + (mouse.x - 0.5) * 18; const cpY = y + (endY - y) * 0.6; ctx.quadraticCurveTo(cpX, cpY, endX, endY); ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.stroke(); }
+    function drawLeaf(x, y, angle, size, color, alpha) { ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.globalAlpha = alpha; ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(size * 0.6, -size * 0.3, size * 0.9, -size * 0.15, size, 0); ctx.bezierCurveTo(size * 0.9, size * 0.15, size * 0.6, size * 0.3, 0, 0); ctx.fillStyle = color; ctx.fill(); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(size * 0.85, 0); ctx.strokeStyle = palette[4]; ctx.lineWidth = 0.5; ctx.globalAlpha = alpha * 0.5; ctx.stroke(); ctx.restore(); }
+    function drawPlant(p, t) { const W = canvas.width, H = canvas.height; const bx = p.x * W; const by = H; const sway = Math.sin(t * 0.8 + p.phase) * 6 + (mouse.x - 0.5) * 14; const tipX = bx + sway; const tipY = H - p.height * H; const col = palette[Math.floor(p.phase * 2) % palette.length]; drawStem(bx, by, tipX, tipY, 1.2, col); const leafCount = Math.floor(p.height * 6) + 2; for (let i = 1; i <= leafCount; i++) { const t2 = i / (leafCount + 1); const lx = bx + (tipX - bx) * t2; const ly = by + (tipY - by) * t2; const side = i % 2 === 0 ? 1 : -1; const leafSway = Math.sin(t * 0.9 + p.phase + i) * 0.08; const baseAngle = side * (Math.PI * 0.35) + leafSway; const sz = (14 + Math.random() * 0 + p.height * 18) * (0.5 + t2 * 0.7); const lCol = palette[(i + Math.floor(p.phase)) % palette.length]; drawLeaf(lx, ly, baseAngle, sz, lCol, 0.35 + t2 * 0.25); } ctx.beginPath(); ctx.arc(tipX, tipY, 2.5, 0, Math.PI * 2); ctx.fillStyle = palette[4]; ctx.globalAlpha = 0.5; ctx.fill(); ctx.globalAlpha = 1; }
+    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); time += 0.012; plants.forEach(p => drawPlant(p, time)); requestAnimationFrame(animate); }
     animate();
   })();
   </script>
@@ -786,16 +701,9 @@
     const qElR = document.getElementById('status-quote-r');
     if (qEl) qEl.textContent = quoteText;
     if (qElR) qElR.textContent = attrText;
-
     function updateSGTime() {
       const now = new Date();
-      const sgTime = new Intl.DateTimeFormat('en-SG', {
-        timeZone: 'Asia/Singapore',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      }).format(now);
+      const sgTime = new Intl.DateTimeFormat('en-SG', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).format(now);
       const el = document.getElementById('sg-time');
       if (el) el.textContent = sgTime;
     }
@@ -804,7 +712,6 @@
   </script>
 
   <script>
-  // Shared garden engine — used for both photo garden and quotes garden
   function createGarden(canvasId, opts) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
@@ -812,224 +719,23 @@
     const wrap = canvas.parentElement;
     let mouse = { x: -999, y: -999 };
     let time = 0;
-
-    function resize() {
-      canvas.width = wrap.offsetWidth;
-      canvas.height = wrap.offsetHeight;
-    }
+    function resize() { canvas.width = wrap.offsetWidth; canvas.height = wrap.offsetHeight; }
     resize();
     window.addEventListener('resize', resize);
-
-    wrap.addEventListener('mousemove', e => {
-      const r = wrap.getBoundingClientRect();
-      mouse.x = e.clientX - r.left;
-      mouse.y = e.clientY - r.top;
-    });
+    wrap.addEventListener('mousemove', e => { const r = wrap.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     wrap.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
-
-    // Generate varied plants across width
     const count = opts.count || 18;
-    const plants = Array.from({ length: count }, (_, i) => ({
-      x: (i / (count - 1)) * 0.96 + 0.02,
-      height: 0.3 + Math.random() * 0.65,
-      phase: Math.random() * Math.PI * 2,
-      speed: 0.6 + Math.random() * 0.8,
-      type: Math.floor(Math.random() * 4), // 0=leaf, 1=clover, 2=flower, 3=fern
-      thickness: 0.8 + Math.random() * 1.2,
-    }));
-
+    const plants = Array.from({ length: count }, (_, i) => ({ x: (i / (count - 1)) * 0.96 + 0.02, height: 0.3 + Math.random() * 0.65, phase: Math.random() * Math.PI * 2, speed: 0.6 + Math.random() * 0.8, type: Math.floor(Math.random() * 4), thickness: 0.8 + Math.random() * 1.2 }));
     const greens = ['#3A5C3E','#4A6741','#6B8F6E','#7A9C73','#8FAF88','#5A7A5C'];
     const flowerCols = ['#C8B4A0','#D4C9A8','#B8C9A8','#E8C8B0','#F0DDB8'];
-
-    function mouseInfluence(bx, by) {
-      const dx = mouse.x - bx;
-      const dy = mouse.y - by;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      const radius = 120;
-      if (dist < radius) {
-        const force = (1 - dist / radius) * 28;
-        return (dx / dist) * force * -1;
-      }
-      return 0;
-    }
-
-    function drawLeafPlant(bx, tipX, tipY, p, t) {
-      const W = canvas.width, H = canvas.height;
-      // stem
-      ctx.beginPath();
-      ctx.moveTo(bx, H);
-      const cpx = bx + (tipX - bx) * 0.4;
-      const cpy = H + (tipY - H) * 0.5;
-      ctx.quadraticCurveTo(cpx, cpy, tipX, tipY);
-      ctx.strokeStyle = greens[Math.floor(p.phase) % greens.length];
-      ctx.lineWidth = p.thickness;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      // leaves along stem
-      const leafCount = 2 + Math.floor(p.height * 4);
-      for (let i = 1; i <= leafCount; i++) {
-        const frac = i / (leafCount + 1);
-        const lx = bx + (tipX - bx) * frac;
-        const ly = H + (tipY - H) * frac;
-        const side = i % 2 === 0 ? 1 : -1;
-        const wiggle = Math.sin(t * p.speed * 1.2 + p.phase + i) * 0.12;
-        const angle = side * (Math.PI * 0.38 + wiggle);
-        const sz = (8 + p.height * 16) * (0.4 + frac * 0.7);
-        ctx.save();
-        ctx.translate(lx, ly);
-        ctx.rotate(angle);
-        ctx.globalAlpha = 0.55 + frac * 0.2;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(sz*0.5, -sz*0.28, sz*0.9, -sz*0.12, sz, 0);
-        ctx.bezierCurveTo(sz*0.9, sz*0.12, sz*0.5, sz*0.28, 0, 0);
-        ctx.fillStyle = greens[(i + Math.floor(p.phase*2)) % greens.length];
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.restore();
-      }
-    }
-
-    function drawClover(bx, tipX, tipY, p, t) {
-      const W = canvas.width, H = canvas.height;
-      ctx.beginPath();
-      ctx.moveTo(bx, H);
-      ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.6, tipX, tipY);
-      ctx.strokeStyle = '#4A6741';
-      ctx.lineWidth = p.thickness * 0.9;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      // 3-leaf clover at tip
-      const r = 6 + p.height * 12;
-      for (let i = 0; i < 3; i++) {
-        const a = (i / 3) * Math.PI * 2 + t * p.speed * 0.3;
-        const cx2 = tipX + Math.cos(a) * r * 0.7;
-        const cy2 = tipY + Math.sin(a) * r * 0.7;
-        ctx.beginPath();
-        ctx.arc(cx2, cy2, r * 0.55, 0, Math.PI * 2);
-        ctx.globalAlpha = 0.6;
-        ctx.fillStyle = greens[i % greens.length];
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-      // stem leaf
-      const midX = bx + (tipX-bx) * 0.55;
-      const midY = H + (tipY-H) * 0.55;
-      ctx.beginPath();
-      ctx.ellipse(midX + 8, midY, 7, 4, 0.6, 0, Math.PI*2);
-      ctx.globalAlpha = 0.45;
-      ctx.fillStyle = '#6B8F6E';
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-
-    function drawFlower(bx, tipX, tipY, p, t) {
-      const W = canvas.width, H = canvas.height;
-      ctx.beginPath();
-      ctx.moveTo(bx, H);
-      ctx.quadraticCurveTo(bx + (tipX-bx)*0.35, H + (tipY-H)*0.55, tipX, tipY);
-      ctx.strokeStyle = '#5A7A5C';
-      ctx.lineWidth = p.thickness;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      // petals
-      const petalCount = 5;
-      const pr = 5 + p.height * 9;
-      const rot = t * p.speed * 0.15;
-      for (let i = 0; i < petalCount; i++) {
-        const a = (i / petalCount) * Math.PI * 2 + rot;
-        const px2 = tipX + Math.cos(a) * pr;
-        const py2 = tipY + Math.sin(a) * pr;
-        ctx.beginPath();
-        ctx.ellipse(px2, py2, pr * 0.65, pr * 0.4, a, 0, Math.PI*2);
-        ctx.globalAlpha = 0.65;
-        ctx.fillStyle = flowerCols[i % flowerCols.length];
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-      // centre
-      ctx.beginPath();
-      ctx.arc(tipX, tipY, pr * 0.38, 0, Math.PI*2);
-      ctx.globalAlpha = 0.8;
-      ctx.fillStyle = '#D4C9A8';
-      ctx.fill();
-      ctx.globalAlpha = 1;
-
-      // leaf on stem
-      const lx = bx + (tipX-bx)*0.5;
-      const ly = H + (tipY-H)*0.5;
-      ctx.save();
-      ctx.translate(lx, ly);
-      ctx.rotate(-0.5);
-      ctx.globalAlpha = 0.5;
-      ctx.beginPath();
-      ctx.ellipse(8, 0, 10, 5, 0, 0, Math.PI*2);
-      ctx.fillStyle = '#6B8F6E';
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.restore();
-    }
-
-    function drawFern(bx, tipX, tipY, p, t) {
-      const H = canvas.height;
-      ctx.beginPath();
-      ctx.moveTo(bx, H);
-      ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.65, tipX, tipY);
-      ctx.strokeStyle = '#4A6741';
-      ctx.lineWidth = p.thickness * 0.8;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-
-      // fronds
-      const frondCount = 4 + Math.floor(p.height * 5);
-      for (let i = 0; i < frondCount; i++) {
-        const frac = (i + 1) / (frondCount + 1);
-        const fx = bx + (tipX - bx) * frac;
-        const fy = H + (tipY - H) * frac;
-        const side = i % 2 === 0 ? 1 : -1;
-        const frondLen = (6 + p.height * 14) * (0.3 + frac * 0.7);
-        const angle = side * (Math.PI * 0.45) + Math.sin(t*p.speed + p.phase + i)*0.1;
-        const ex = fx + Math.cos(angle) * frondLen;
-        const ey = fy + Math.sin(angle - Math.PI*0.5) * frondLen * 0.4;
-        ctx.beginPath();
-        ctx.moveTo(fx, fy);
-        ctx.quadraticCurveTo((fx+ex)/2, fy - frondLen*0.3, ex, ey);
-        ctx.strokeStyle = greens[(i+2) % greens.length];
-        ctx.lineWidth = 0.8;
-        ctx.globalAlpha = 0.6;
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      time += 0.018;
-      const H = canvas.height;
-      const W = canvas.width;
-
-      plants.forEach(p => {
-        const bx = p.x * W;
-        const windSway = Math.sin(time * p.speed + p.phase) * 10 * p.height;
-        const mousePush = mouseInfluence(bx, H - p.height * H * 0.5);
-        const tipX = bx + windSway + mousePush;
-        const tipY = H - p.height * H;
-
-        if (p.type === 0) drawLeafPlant(bx, tipX, tipY, p, time);
-        else if (p.type === 1) drawClover(bx, tipX, tipY, p, time);
-        else if (p.type === 2) drawFlower(bx, tipX, tipY, p, time);
-        else drawFern(bx, tipX, tipY, p, time);
-      });
-
-      requestAnimationFrame(animate);
-    }
+    function mouseInfluence(bx, by) { const dx = mouse.x - bx; const dy = mouse.y - by; const dist = Math.sqrt(dx*dx + dy*dy); const radius = 120; if (dist < radius) { const force = (1 - dist / radius) * 28; return (dx / dist) * force * -1; } return 0; }
+    function drawLeafPlant(bx, tipX, tipY, p, t) { const H = canvas.height; ctx.beginPath(); ctx.moveTo(bx, H); ctx.quadraticCurveTo(bx + (tipX - bx) * 0.4, H + (tipY - H) * 0.5, tipX, tipY); ctx.strokeStyle = greens[Math.floor(p.phase) % greens.length]; ctx.lineWidth = p.thickness; ctx.lineCap = 'round'; ctx.stroke(); const leafCount = 2 + Math.floor(p.height * 4); for (let i = 1; i <= leafCount; i++) { const frac = i / (leafCount + 1); const lx = bx + (tipX - bx) * frac; const ly = H + (tipY - H) * frac; const side = i % 2 === 0 ? 1 : -1; const wiggle = Math.sin(t * p.speed * 1.2 + p.phase + i) * 0.12; const angle = side * (Math.PI * 0.38 + wiggle); const sz = (8 + p.height * 16) * (0.4 + frac * 0.7); ctx.save(); ctx.translate(lx, ly); ctx.rotate(angle); ctx.globalAlpha = 0.55 + frac * 0.2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(sz*0.5, -sz*0.28, sz*0.9, -sz*0.12, sz, 0); ctx.bezierCurveTo(sz*0.9, sz*0.12, sz*0.5, sz*0.28, 0, 0); ctx.fillStyle = greens[(i + Math.floor(p.phase*2)) % greens.length]; ctx.fill(); ctx.globalAlpha = 1; ctx.restore(); } }
+    function drawClover(bx, tipX, tipY, p, t) { const H = canvas.height; ctx.beginPath(); ctx.moveTo(bx, H); ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.6, tipX, tipY); ctx.strokeStyle = '#4A6741'; ctx.lineWidth = p.thickness * 0.9; ctx.lineCap = 'round'; ctx.stroke(); const r = 6 + p.height * 12; for (let i = 0; i < 3; i++) { const a = (i / 3) * Math.PI * 2 + t * p.speed * 0.3; const cx2 = tipX + Math.cos(a) * r * 0.7; const cy2 = tipY + Math.sin(a) * r * 0.7; ctx.beginPath(); ctx.arc(cx2, cy2, r * 0.55, 0, Math.PI * 2); ctx.globalAlpha = 0.6; ctx.fillStyle = greens[i % greens.length]; ctx.fill(); ctx.globalAlpha = 1; } const midX = bx + (tipX-bx) * 0.55; const midY = H + (tipY-H) * 0.55; ctx.beginPath(); ctx.ellipse(midX + 8, midY, 7, 4, 0.6, 0, Math.PI*2); ctx.globalAlpha = 0.45; ctx.fillStyle = '#6B8F6E'; ctx.fill(); ctx.globalAlpha = 1; }
+    function drawFlower(bx, tipX, tipY, p, t) { const H = canvas.height; ctx.beginPath(); ctx.moveTo(bx, H); ctx.quadraticCurveTo(bx + (tipX-bx)*0.35, H + (tipY-H)*0.55, tipX, tipY); ctx.strokeStyle = '#5A7A5C'; ctx.lineWidth = p.thickness; ctx.lineCap = 'round'; ctx.stroke(); const petalCount = 5; const pr = 5 + p.height * 9; const rot = t * p.speed * 0.15; for (let i = 0; i < petalCount; i++) { const a = (i / petalCount) * Math.PI * 2 + rot; const px2 = tipX + Math.cos(a) * pr; const py2 = tipY + Math.sin(a) * pr; ctx.beginPath(); ctx.ellipse(px2, py2, pr * 0.65, pr * 0.4, a, 0, Math.PI*2); ctx.globalAlpha = 0.65; ctx.fillStyle = flowerCols[i % flowerCols.length]; ctx.fill(); ctx.globalAlpha = 1; } ctx.beginPath(); ctx.arc(tipX, tipY, pr * 0.38, 0, Math.PI*2); ctx.globalAlpha = 0.8; ctx.fillStyle = '#D4C9A8'; ctx.fill(); ctx.globalAlpha = 1; const lx = bx + (tipX-bx)*0.5; const ly = H + (tipY-H)*0.5; ctx.save(); ctx.translate(lx, ly); ctx.rotate(-0.5); ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.ellipse(8, 0, 10, 5, 0, 0, Math.PI*2); ctx.fillStyle = '#6B8F6E'; ctx.fill(); ctx.globalAlpha = 1; ctx.restore(); }
+    function drawFern(bx, tipX, tipY, p, t) { const H = canvas.height; ctx.beginPath(); ctx.moveTo(bx, H); ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.65, tipX, tipY); ctx.strokeStyle = '#4A6741'; ctx.lineWidth = p.thickness * 0.8; ctx.lineCap = 'round'; ctx.stroke(); const frondCount = 4 + Math.floor(p.height * 5); for (let i = 0; i < frondCount; i++) { const frac = (i + 1) / (frondCount + 1); const fx = bx + (tipX - bx) * frac; const fy = H + (tipY - H) * frac; const side = i % 2 === 0 ? 1 : -1; const frondLen = (6 + p.height * 14) * (0.3 + frac * 0.7); const angle = side * (Math.PI * 0.45) + Math.sin(t*p.speed + p.phase + i)*0.1; const ex = fx + Math.cos(angle) * frondLen; const ey = fy + Math.sin(angle - Math.PI*0.5) * frondLen * 0.4; ctx.beginPath(); ctx.moveTo(fx, fy); ctx.quadraticCurveTo((fx+ex)/2, fy - frondLen*0.3, ex, ey); ctx.strokeStyle = greens[(i+2) % greens.length]; ctx.lineWidth = 0.8; ctx.globalAlpha = 0.6; ctx.stroke(); ctx.globalAlpha = 1; } }
+    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); time += 0.018; const H = canvas.height; const W = canvas.width; plants.forEach(p => { const bx = p.x * W; const windSway = Math.sin(time * p.speed + p.phase) * 10 * p.height; const mousePush = mouseInfluence(bx, H - p.height * H * 0.5); const tipX = bx + windSway + mousePush; const tipY = H - p.height * H; if (p.type === 0) drawLeafPlant(bx, tipX, tipY, p, time); else if (p.type === 1) drawClover(bx, tipX, tipY, p, time); else if (p.type === 2) drawFlower(bx, tipX, tipY, p, time); else drawFern(bx, tipX, tipY, p, time); }); requestAnimationFrame(animate); }
     animate();
   }
-
-  // Init both gardens
   createGarden('quotes-garden', { count: 20 });
   </script>
 

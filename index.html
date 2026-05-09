@@ -217,9 +217,14 @@
       .github-stats-row { grid-template-columns: 1fr; }
     }
 
+
+    /* Garden canvas */
+    .garden-wrap { position: relative; width: 100%; height: 100px; overflow: hidden; margin-top: -4px; }
+    .garden-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+
     /* Botanical illustration */
-    .botanical-wrap { margin-top: auto; padding-top: 1.5rem; position: relative; height: 180px; overflow: hidden; }
-    .botanical-wrap svg { position: absolute; bottom: 0; right: 0; width: 100%; height: 100%; }
+    .botanical-wrap { margin-top: auto; position: relative; height: 140px; overflow: hidden; }
+    .botanical-wrap canvas { display: block; width: 100%; height: 100%; }
     .leaf { transform-origin: bottom center; animation: sway 4s ease-in-out infinite; }
     .leaf-2 { animation-delay: 0.6s; animation-duration: 5s; }
     .leaf-3 { animation-delay: 1.2s; animation-duration: 4.5s; }
@@ -389,6 +394,9 @@
             <span class="pbtn-line"></span>
           </button>
         </div>
+      <div class="garden-wrap">
+        <canvas class="garden-canvas" id="photo-garden"></canvas>
+      </div>
       </div><!-- end photo-toggle-wrap -->
       </div><!-- end about-main-inner -->
 
@@ -486,46 +494,7 @@
         </style>
         <a href="https://www.goodreads.com/quotes/list/174013085-lak" target="_blank" rel="noopener" class="goodreads-link" style="margin-top:1rem;">See all quotes ↗</a>
         <div class="botanical-wrap" id="botanical">
-          <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-            <path d="M80 180 Q85 140 75 100 Q70 70 80 40" stroke="#6B8F6E" stroke-width="1.5" fill="none" opacity="0.7"/>
-            <path d="M140 180 Q148 145 138 105 Q130 75 145 35" stroke="#6B8F6E" stroke-width="1.5" fill="none" opacity="0.6"/>
-            <path d="M200 180 Q195 150 205 115 Q212 85 200 50" stroke="#4A6741" stroke-width="1.2" fill="none" opacity="0.5"/>
-            <path d="M240 180 Q244 160 238 135 Q233 115 240 90" stroke="#7A9C73" stroke-width="1" fill="none" opacity="0.45"/>
-            <g class="leaf" style="transform-origin:80px 100px">
-              <path d="M80 100 Q50 80 35 55 Q55 65 80 100Z" fill="#6B8F6E" opacity="0.5"/>
-              <path d="M80 100 Q60 75 50 50" stroke="#4A6741" stroke-width="0.8" fill="none" opacity="0.6"/>
-            </g>
-            <g class="leaf leaf-2" style="transform-origin:80px 80px">
-              <path d="M80 80 Q108 62 122 40 Q100 52 80 80Z" fill="#7A9C73" opacity="0.45"/>
-              <path d="M80 80 Q102 58 115 38" stroke="#4A6741" stroke-width="0.8" fill="none" opacity="0.5"/>
-            </g>
-            <g class="leaf leaf-3" style="transform-origin:140px 85px">
-              <path d="M140 85 Q112 68 100 45 Q122 58 140 85Z" fill="#4A6741" opacity="0.4"/>
-              <path d="M140 85 Q115 65 104 44" stroke="#3A5C3E" stroke-width="0.8" fill="none" opacity="0.5"/>
-            </g>
-            <g class="leaf leaf-2" style="transform-origin:140px 65px">
-              <path d="M140 65 Q165 48 178 28 Q158 44 140 65Z" fill="#8FAF88" opacity="0.4"/>
-              <path d="M140 65 Q162 46 175 28" stroke="#6B8F6E" stroke-width="0.8" fill="none" opacity="0.5"/>
-            </g>
-            <g class="leaf leaf-4" style="transform-origin:200px 90px">
-              <path d="M200 90 Q175 75 162 52 Q182 65 200 90Z" fill="#6B8F6E" opacity="0.35"/>
-            </g>
-            <g class="leaf leaf-5" style="transform-origin:200px 72px">
-              <path d="M200 72 Q222 55 234 35 Q215 50 200 72Z" fill="#4A6741" opacity="0.38"/>
-            </g>
-            <g class="leaf leaf-3" style="transform-origin:240px 110px">
-              <path d="M240 110 Q220 98 212 80 Q228 92 240 110Z" fill="#7A9C73" opacity="0.3"/>
-            </g>
-            <g class="leaf leaf-5" style="transform-origin:240px 95px">
-              <path d="M240 95 Q258 82 265 65 Q250 78 240 95Z" fill="#8FAF88" opacity="0.28"/>
-            </g>
-            <circle cx="78" cy="38" r="2.5" fill="#4A6741" opacity="0.5"/>
-            <circle cx="83" cy="33" r="1.8" fill="#6B8F6E" opacity="0.4"/>
-            <circle cx="145" cy="33" r="2.2" fill="#4A6741" opacity="0.45"/>
-            <circle cx="201" cy="48" r="2" fill="#6B8F6E" opacity="0.4"/>
-            <circle cx="241" cy="88" r="1.5" fill="#4A6741" opacity="0.35"/>
-            <line x1="0" y1="179" x2="300" y2="179" stroke="#DDD8CF" stroke-width="0.5"/>
-          </svg>
+          <canvas id="quotes-garden" style="width:100%;height:100%;display:block;cursor:crosshair;"></canvas>
         </div>
       </div>
     </div>
@@ -832,6 +801,238 @@
     updateSGTime();
     setInterval(updateSGTime, 1000);
   </script>
+
+  <script>
+  // Shared garden engine — used for both photo garden and quotes garden
+  function createGarden(canvasId, opts) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const wrap = canvas.parentElement;
+    let mouse = { x: -999, y: -999 };
+    let time = 0;
+
+    function resize() {
+      canvas.width = wrap.offsetWidth;
+      canvas.height = wrap.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    wrap.addEventListener('mousemove', e => {
+      const r = wrap.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    });
+    wrap.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+    // Generate varied plants across width
+    const count = opts.count || 18;
+    const plants = Array.from({ length: count }, (_, i) => ({
+      x: (i / (count - 1)) * 0.96 + 0.02,
+      height: 0.3 + Math.random() * 0.65,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.6 + Math.random() * 0.8,
+      type: Math.floor(Math.random() * 4), // 0=leaf, 1=clover, 2=flower, 3=fern
+      thickness: 0.8 + Math.random() * 1.2,
+    }));
+
+    const greens = ['#3A5C3E','#4A6741','#6B8F6E','#7A9C73','#8FAF88','#5A7A5C'];
+    const flowerCols = ['#C8B4A0','#D4C9A8','#B8C9A8','#E8C8B0','#F0DDB8'];
+
+    function mouseInfluence(bx, by) {
+      const dx = mouse.x - bx;
+      const dy = mouse.y - by;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const radius = 120;
+      if (dist < radius) {
+        const force = (1 - dist / radius) * 28;
+        return (dx / dist) * force * -1;
+      }
+      return 0;
+    }
+
+    function drawLeafPlant(bx, tipX, tipY, p, t) {
+      const W = canvas.width, H = canvas.height;
+      // stem
+      ctx.beginPath();
+      ctx.moveTo(bx, H);
+      const cpx = bx + (tipX - bx) * 0.4;
+      const cpy = H + (tipY - H) * 0.5;
+      ctx.quadraticCurveTo(cpx, cpy, tipX, tipY);
+      ctx.strokeStyle = greens[Math.floor(p.phase) % greens.length];
+      ctx.lineWidth = p.thickness;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // leaves along stem
+      const leafCount = 2 + Math.floor(p.height * 4);
+      for (let i = 1; i <= leafCount; i++) {
+        const frac = i / (leafCount + 1);
+        const lx = bx + (tipX - bx) * frac;
+        const ly = H + (tipY - H) * frac;
+        const side = i % 2 === 0 ? 1 : -1;
+        const wiggle = Math.sin(t * p.speed * 1.2 + p.phase + i) * 0.12;
+        const angle = side * (Math.PI * 0.38 + wiggle);
+        const sz = (8 + p.height * 16) * (0.4 + frac * 0.7);
+        ctx.save();
+        ctx.translate(lx, ly);
+        ctx.rotate(angle);
+        ctx.globalAlpha = 0.55 + frac * 0.2;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(sz*0.5, -sz*0.28, sz*0.9, -sz*0.12, sz, 0);
+        ctx.bezierCurveTo(sz*0.9, sz*0.12, sz*0.5, sz*0.28, 0, 0);
+        ctx.fillStyle = greens[(i + Math.floor(p.phase*2)) % greens.length];
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+    }
+
+    function drawClover(bx, tipX, tipY, p, t) {
+      const W = canvas.width, H = canvas.height;
+      ctx.beginPath();
+      ctx.moveTo(bx, H);
+      ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.6, tipX, tipY);
+      ctx.strokeStyle = '#4A6741';
+      ctx.lineWidth = p.thickness * 0.9;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // 3-leaf clover at tip
+      const r = 6 + p.height * 12;
+      for (let i = 0; i < 3; i++) {
+        const a = (i / 3) * Math.PI * 2 + t * p.speed * 0.3;
+        const cx2 = tipX + Math.cos(a) * r * 0.7;
+        const cy2 = tipY + Math.sin(a) * r * 0.7;
+        ctx.beginPath();
+        ctx.arc(cx2, cy2, r * 0.55, 0, Math.PI * 2);
+        ctx.globalAlpha = 0.6;
+        ctx.fillStyle = greens[i % greens.length];
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      // stem leaf
+      const midX = bx + (tipX-bx) * 0.55;
+      const midY = H + (tipY-H) * 0.55;
+      ctx.beginPath();
+      ctx.ellipse(midX + 8, midY, 7, 4, 0.6, 0, Math.PI*2);
+      ctx.globalAlpha = 0.45;
+      ctx.fillStyle = '#6B8F6E';
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    function drawFlower(bx, tipX, tipY, p, t) {
+      const W = canvas.width, H = canvas.height;
+      ctx.beginPath();
+      ctx.moveTo(bx, H);
+      ctx.quadraticCurveTo(bx + (tipX-bx)*0.35, H + (tipY-H)*0.55, tipX, tipY);
+      ctx.strokeStyle = '#5A7A5C';
+      ctx.lineWidth = p.thickness;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // petals
+      const petalCount = 5;
+      const pr = 5 + p.height * 9;
+      const rot = t * p.speed * 0.15;
+      for (let i = 0; i < petalCount; i++) {
+        const a = (i / petalCount) * Math.PI * 2 + rot;
+        const px2 = tipX + Math.cos(a) * pr;
+        const py2 = tipY + Math.sin(a) * pr;
+        ctx.beginPath();
+        ctx.ellipse(px2, py2, pr * 0.65, pr * 0.4, a, 0, Math.PI*2);
+        ctx.globalAlpha = 0.65;
+        ctx.fillStyle = flowerCols[i % flowerCols.length];
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      // centre
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, pr * 0.38, 0, Math.PI*2);
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = '#D4C9A8';
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // leaf on stem
+      const lx = bx + (tipX-bx)*0.5;
+      const ly = H + (tipY-H)*0.5;
+      ctx.save();
+      ctx.translate(lx, ly);
+      ctx.rotate(-0.5);
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      ctx.ellipse(8, 0, 10, 5, 0, 0, Math.PI*2);
+      ctx.fillStyle = '#6B8F6E';
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    function drawFern(bx, tipX, tipY, p, t) {
+      const H = canvas.height;
+      ctx.beginPath();
+      ctx.moveTo(bx, H);
+      ctx.quadraticCurveTo(bx + (tipX-bx)*0.3, H + (tipY-H)*0.65, tipX, tipY);
+      ctx.strokeStyle = '#4A6741';
+      ctx.lineWidth = p.thickness * 0.8;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // fronds
+      const frondCount = 4 + Math.floor(p.height * 5);
+      for (let i = 0; i < frondCount; i++) {
+        const frac = (i + 1) / (frondCount + 1);
+        const fx = bx + (tipX - bx) * frac;
+        const fy = H + (tipY - H) * frac;
+        const side = i % 2 === 0 ? 1 : -1;
+        const frondLen = (6 + p.height * 14) * (0.3 + frac * 0.7);
+        const angle = side * (Math.PI * 0.45) + Math.sin(t*p.speed + p.phase + i)*0.1;
+        const ex = fx + Math.cos(angle) * frondLen;
+        const ey = fy + Math.sin(angle - Math.PI*0.5) * frondLen * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(fx, fy);
+        ctx.quadraticCurveTo((fx+ex)/2, fy - frondLen*0.3, ex, ey);
+        ctx.strokeStyle = greens[(i+2) % greens.length];
+        ctx.lineWidth = 0.8;
+        ctx.globalAlpha = 0.6;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += 0.018;
+      const H = canvas.height;
+      const W = canvas.width;
+
+      plants.forEach(p => {
+        const bx = p.x * W;
+        const windSway = Math.sin(time * p.speed + p.phase) * 10 * p.height;
+        const mousePush = mouseInfluence(bx, H - p.height * H * 0.5);
+        const tipX = bx + windSway + mousePush;
+        const tipY = H - p.height * H;
+
+        if (p.type === 0) drawLeafPlant(bx, tipX, tipY, p, time);
+        else if (p.type === 1) drawClover(bx, tipX, tipY, p, time);
+        else if (p.type === 2) drawFlower(bx, tipX, tipY, p, time);
+        else drawFern(bx, tipX, tipY, p, time);
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  // Init both gardens
+  createGarden('photo-garden', { count: 16 });
+  createGarden('quotes-garden', { count: 20 });
+  </script>
+
   </div>
 </body>
 </html>

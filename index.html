@@ -21,6 +21,7 @@
       --syne: 'Syne', sans-serif; --news: 'Newsreader', serif; --mono: 'Space Mono', monospace;
     }
     body { font-family: var(--news); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; font-weight: 300; }
+    .site-wrapper { max-width: 1400px; margin: 0 auto; box-shadow: 0 0 0 1px var(--line); }
 
     /* NAV */
     nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 52px; }
@@ -30,7 +31,7 @@
     .nav-links a:hover { color: var(--green); }
 
     /* HERO */
-    .hero { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
+    .hero { display: grid; grid-template-columns: 55fr 45fr; border-bottom: 2px solid var(--ink); }
     .hero-letter { padding: 3rem 2.5rem; border-right: 1px solid var(--line); background: var(--white); display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; }
     .letter-date { font-family: var(--mono); font-size: 0.6rem; color: var(--ink-3); margin-bottom: 2rem; }
     .letter-to { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
@@ -71,7 +72,7 @@
     .goodreads-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); border-bottom: 1px solid var(--green-border); padding-bottom: 0.15rem; }
 
     /* ABOUT */
-    .about-sec { display: grid; grid-template-columns: 200px 1fr; border-bottom: 2px solid var(--ink); }
+    .about-sec { display: grid; grid-template-columns: 180px 1fr; border-bottom: 2px solid var(--ink); }
     .about-sidebar { border-right: 1px solid var(--line); padding: 2rem 1.5rem; display: flex; flex-direction: column; background: var(--white); }
     .sidebar-item { padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
     .sidebar-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -107,8 +108,8 @@
 
     /* BOOKS */
     .books-sec { border-bottom: 2px solid var(--ink); background: var(--white); }
-    .books-body { display: grid; grid-template-columns: 3fr 2fr; }
-    .books-shelf { padding: 2rem; border-right: 1px solid var(--line); }
+    .books-body { display: block; }
+    .books-shelf { padding: 2rem; }
     .gr_grid_container { display: flex; flex-wrap: wrap; gap: 7px; }
     .gr_grid_book_container { float: none !important; width: 58px !important; height: 86px !important; padding: 0 !important; overflow: hidden; border: 1px solid var(--line); transition: transform 0.2s; }
     .gr_grid_book_container:hover { transform: translateY(-3px); }
@@ -116,14 +117,19 @@
     .gr_grid_branding { display: none !important; }
     #gr_grid_widget_1778300604 h2 { display: none !important; }
     .books-updates { padding: 2rem; }
-    .gr-iframe { width: 100%; min-height: 320px; border: 1px solid var(--line); display: block; }
+
 
     /* GITHUB */
     .github-sec { border-bottom: 2px solid var(--ink); background: var(--bg); }
     .github-body { padding: 2rem; }
     .github-contrib { width: 100%; border: 1px solid var(--line); display: block; margin-bottom: 1rem; }
-    .github-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    .github-stats-row img { width: 100%; border: 1px solid var(--line); display: block; }
+    .github-repos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    .repo-card { border: 1px solid var(--line); padding: 1.25rem; background: var(--white); transition: background 0.2s; }
+    .repo-card:hover { background: var(--green-pale); }
+    .repo-card h4 { font-family: var(--syne); font-size: 0.85rem; font-weight: 700; color: var(--green); margin-bottom: 0.4rem; }
+    .repo-card p { font-family: var(--news); font-size: 0.78rem; color: var(--ink-2); font-style: italic; margin-bottom: 0.75rem; line-height: 1.5; }
+    .repo-meta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .repo-tag { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); background: var(--surface); border: 1px solid var(--line); padding: 0.1rem 0.4rem; }
 
     /* HOBBIES */
     .hobbies-sec { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
@@ -179,6 +185,7 @@
 </head>
 <body>
 
+  <div class="site-wrapper">
   <nav>
     <span class="logo">Lak.</span>
     <ul class="nav-links">
@@ -376,10 +383,7 @@
         <script src="https://www.goodreads.com/review/grid_widget/174013085.lak's%20bookshelf:%20read?cover_size=medium&hide_link=&hide_title=&num_books=32&order=d&shelf=read&sort=date_added&widget_id=1778300604" type="text/javascript" charset="utf-8"></script>
         <a href="https://www.goodreads.com/user/show/174013085-lak" target="_blank" rel="noopener" class="goodreads-link">See all books ↗</a>
       </div>
-      <div class="books-updates">
-        <div class="shelf-sublabel">Recent activity</div>
-        <iframe class="gr-iframe" src="https://goodreads.com/widgets/user_update_widget?height=400&num_updates=4&user=174013085&width=300" frameborder="0" title="Lakshana's Goodreads activity" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-      </div>
+
     </div>
   </section>
 
@@ -391,11 +395,29 @@
     <div class="github-body">
       <div class="shelf-sublabel" style="margin-bottom:0.75rem;">Contribution graph</div>
       <img class="github-contrib" src="https://ghchart.rshah.org/3A5C3E/Lakshana-K" alt="Lakshana-K GitHub contributions"/>
-      <div class="github-stats-row">
-        <img src="https://github-readme-stats.vercel.app/api?username=Lakshana-K&show_icons=true&hide_border=true&bg_color=F4F1EC&text_color=1A1916&icon_color=3A5C3E&title_color=3A5C3E&ring_color=3A5C3E&include_all_commits=true" alt="GitHub stats"/>
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Lakshana-K&layout=compact&hide_border=true&bg_color=F4F1EC&text_color=1A1916&title_color=3A5C3E" alt="Top languages"/>
+      <div class="github-repos">
+        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="repo-card">
+          <h4>Project Name ↗</h4>
+          <p>Short description of what this repo does. Replace with your real project.</p>
+          <div class="repo-meta"><span class="repo-tag">Python</span><span class="repo-tag">★ 0</span></div>
+        </a>
+        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="repo-card">
+          <h4>Another Repo ↗</h4>
+          <p>Short description of what this repo does. Replace with your real project.</p>
+          <div class="repo-meta"><span class="repo-tag">JavaScript</span><span class="repo-tag">★ 0</span></div>
+        </a>
+        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="repo-card">
+          <h4>Third Repo ↗</h4>
+          <p>Short description of what this repo does. Replace with your real project.</p>
+          <div class="repo-meta"><span class="repo-tag">React</span><span class="repo-tag">★ 0</span></div>
+        </a>
+        <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="repo-card">
+          <h4>Fourth Repo ↗</h4>
+          <p>Short description of what this repo does. Replace with your real project.</p>
+          <div class="repo-meta"><span class="repo-tag">HTML</span><span class="repo-tag">★ 0</span></div>
+        </a>
       </div>
-      <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="goodreads-link">View all repositories ↗</a>
+      <a href="https://github.com/Lakshana-K" target="_blank" rel="noopener" class="goodreads-link" style="margin-top:1.5rem;">View all repositories on GitHub ↗</a>
     </div>
   </section>
 
@@ -465,5 +487,6 @@
     );
     sections.forEach(s => navObs.observe(s));
   </script>
+  </div>
 </body>
 </html>

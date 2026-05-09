@@ -40,7 +40,7 @@
     .letter-p em { font-style: italic; color: var(--ink); }
     .letter-sign { margin-top: 2.5rem; }
     .letter-sign-label { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); margin-bottom: 0.4rem; }
-    .letter-name { font-family: var(--syne); font-size: 1.5rem; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+    .letter-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 400; font-style: italic; color: var(--green); letter-spacing: 0.01em; line-height: 1.1; }
 
     .hero-right { display: flex; flex-direction: column; background: var(--bg); position: relative; overflow: hidden; }
     .hero-title-block { flex: 1; padding: 2.5rem 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; position: relative; z-index: 2; }
@@ -89,26 +89,29 @@
     .goodreads-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); border-bottom: 1px solid var(--green-border); padding-bottom: 0.15rem; }
 
     /* ABOUT */
-    .about-sec { display: grid; grid-template-columns: 180px 1fr 200px; border-bottom: 2px solid var(--ink); }
+    .about-sec { display: grid; grid-template-columns: 180px 1fr; border-bottom: 2px solid var(--ink); }
     .about-sidebar { border-right: 1px solid var(--line); padding: 2rem 1.5rem; display: flex; flex-direction: column; background: var(--white); }
     .sidebar-item { padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
     .sidebar-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .sidebar-label { font-family: var(--syne); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.3rem; }
     .sidebar-val { font-family: var(--news); font-size: 0.85rem; color: var(--ink); font-style: italic; line-height: 1.45; }
     .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-    .about-photos-wrap { border-left: 1px solid var(--line); background: var(--surface); }
-    .about-photo-toggle { position: relative; height: 100%; min-height: 320px; display: flex; flex-direction: column; }
-    .photo-slot { display: none; flex: 1; }
-    .photo-slot.active { display: block; flex: 1; }
-    .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 280px; }
-    .photo-placeholder-toggle { width: 100%; min-height: 280px; background: var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
-    .photo-placeholder-toggle span { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); }
-    .photo-hint { font-size: 0.5rem !important; opacity: 0.6; }
-    .photo-toggle-btns { display: flex; border-top: 1px solid var(--line); }
-    .photo-btn { flex: 1; padding: 0.6rem; background: var(--white); border: none; border-right: 1px solid var(--line); font-family: var(--mono); font-size: 0.6rem; color: var(--ink-3); cursor: pointer; transition: background 0.2s, color 0.2s; }
-    .photo-btn:last-child { border-right: none; }
-    .photo-btn.active { background: var(--green); color: #fff; }
-    .photo-btn:hover:not(.active) { background: var(--green-pale); color: var(--green); }
+    .about-main-inner { display: grid; grid-template-columns: 1fr 240px; gap: 3rem; align-items: start; }
+    .about-text-col { min-width: 0; }
+    .photo-toggle-wrap { margin-top: 0; max-width: 240px; position: sticky; top: 4rem; }
+    .photo-slots { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--accent); }
+    .photo-slot { display: none; width: 100%; height: 100%; }
+    .photo-slot.active { display: block; }
+    .toggle-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-placeholder-toggle { width: 100%; height: 100%; min-height: 200px; background: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .photo-placeholder-toggle span { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); }
+    .photo-toggle-btns { display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; padding-left: 0.25rem; }
+    .photo-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; padding: 0; }
+    .pbtn-num { font-family: var(--mono); font-size: 0.6rem; color: var(--ink-3); transition: color 0.2s; }
+    .pbtn-line { display: block; width: 24px; height: 1px; background: var(--line); transition: width 0.3s, background 0.2s; }
+    .photo-btn.active .pbtn-num { color: var(--green); }
+    .photo-btn.active .pbtn-line { width: 40px; background: var(--green); }
+    .photo-btn:hover .pbtn-num { color: var(--ink); }
     .about-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--accent); display: flex; align-items: flex-end; padding: 0.75rem; }
     .photo-cap { font-family: var(--mono); font-size: 0.52rem; color: var(--ink-3); }
     .about-main { padding: 2.5rem; background: var(--bg); }
@@ -207,6 +210,8 @@
       .hobbies-left { border-bottom: 1px solid var(--line); }
       .contact-left { border-right: none; border-bottom: 1px solid var(--line); }
       .books-shelf { border-right: none; border-bottom: 1px solid var(--line); }
+      .about-main-inner { grid-template-columns: 1fr; }
+      .photo-toggle-wrap { max-width: 100%; position: static; }
       .nav-links { display: none; }
       .proj-row { grid-template-columns: 2.5rem 1fr; }
       .plink { display: none; }
@@ -343,6 +348,8 @@
       </div>
     </div>
     <div class="about-main reveal">
+      <div class="about-main-inner">
+      <div class="about-text-col">
       <div class="sec-num">001</div>
       <h2 class="sec-title">About <em>me,</em><br>honestly.</h2>
       <p>I'm a [your degree] student at [your university] who spends most of her time thinking about how things work and why they're designed the way they are. I care about craft — the kind of attention to detail that most people don't notice, but would notice if it was missing.</p>
@@ -356,28 +363,33 @@
         <span class="sk">Figma</span>
         <span class="sk">Node.js</span>
       </div>
-    </div>
-    <div class="about-photos-wrap reveal">
-      <div class="about-photo-toggle">
-        <div class="photo-slot active" id="photo-1">
-          <!-- Replace src with your first photo path e.g. src="photo1.jpg" -->
-          <div class="photo-placeholder-toggle">
-            <span>photo 1</span>
-            <span class="photo-hint">add src="photo1.jpg"</span>
+      </div><!-- end about-text-col -->
+
+      <!-- Photo toggle beside text -->
+      <div class="photo-toggle-wrap">
+        <div class="photo-slots">
+          <div class="photo-slot active" id="photo-1">
+            <!-- To add your photo: replace the div below with <img src="photo1.jpg" alt="Lakshana" class="toggle-img"> -->
+            <div class="photo-placeholder-toggle"><span>add src="photo1.jpg"</span></div>
           </div>
-        </div>
-        <div class="photo-slot" id="photo-2">
-          <!-- Replace src with your second photo path e.g. src="photo2.jpg" -->
-          <div class="photo-placeholder-toggle">
-            <span>photo 2</span>
-            <span class="photo-hint">add src="photo2.jpg"</span>
+          <div class="photo-slot" id="photo-2">
+            <!-- To add your photo: replace the div below with <img src="photo2.jpg" alt="Lakshana" class="toggle-img"> -->
+            <div class="photo-placeholder-toggle"><span>add src="photo2.jpg"</span></div>
           </div>
         </div>
         <div class="photo-toggle-btns">
-          <button class="photo-btn active" onclick="switchPhoto(1)">01</button>
-          <button class="photo-btn" onclick="switchPhoto(2)">02</button>
+          <button class="photo-btn active" onclick="switchPhoto(1)">
+            <span class="pbtn-num">01</span>
+            <span class="pbtn-line"></span>
+          </button>
+          <button class="photo-btn" onclick="switchPhoto(2)">
+            <span class="pbtn-num">02</span>
+            <span class="pbtn-line"></span>
+          </button>
         </div>
-      </div>
+      </div><!-- end photo-toggle-wrap -->
+      </div><!-- end about-main-inner -->
+
     </div>
   </section>
 

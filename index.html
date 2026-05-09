@@ -70,7 +70,7 @@
     .sec-header a { font-family: var(--mono); font-size: 0.58rem; color: var(--green); }
     .sec-header-sub { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); }
     .shelf-sublabel { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); letter-spacing: 0.06em; margin-bottom: 1rem; }
-    .books-quotes { padding: 2rem; background: var(--white); }
+    .books-quotes { padding: 2rem; background: var(--white); display: flex; flex-direction: column; }
     .gr-quotes-wrap { margin-top: 0; }
     .gr-quotes-wrap #gr_quote_body { font-family: var(--news) !important; font-size: 0.85rem !important; color: var(--ink-2) !important; line-height: 1.75 !important; }
     .gr-quotes-wrap #gr_quote_body a { color: var(--green) !important; }
@@ -195,6 +195,33 @@
       .plink { display: none; }
       .github-stats-row { grid-template-columns: 1fr; }
     }
+
+    /* Botanical illustration */
+    .botanical-wrap { margin-top: auto; padding-top: 1.5rem; position: relative; height: 180px; overflow: hidden; }
+    .botanical-wrap svg { position: absolute; bottom: 0; right: 0; width: 100%; height: 100%; }
+    .leaf { transform-origin: bottom center; animation: sway 4s ease-in-out infinite; }
+    .leaf-2 { animation-delay: 0.6s; animation-duration: 5s; }
+    .leaf-3 { animation-delay: 1.2s; animation-duration: 4.5s; }
+    .leaf-4 { animation-delay: 0.3s; animation-duration: 3.8s; }
+    .leaf-5 { animation-delay: 1.8s; animation-duration: 5.2s; }
+    @keyframes sway {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(1.5deg); }
+      75% { transform: rotate(-1.5deg); }
+    }
+    /* Side texture strips */
+    body { position: relative; }
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      top: 0; bottom: 0;
+      width: calc((100vw - 1280px) / 2);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before { left: 0; background: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(58,92,62,0.04) 28px, rgba(58,92,62,0.04) 29px), repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(58,92,62,0.03) 28px, rgba(58,92,62,0.03) 29px); }
+    body::after { right: 0; background: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(58,92,62,0.04) 28px, rgba(58,92,62,0.04) 29px), repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(58,92,62,0.03) 28px, rgba(58,92,62,0.03) 29px); }
+    .page { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
@@ -409,6 +436,65 @@
           .quotesWidgetContainer, .quotesWidgetHeader, .gr_quotes_footer { display:none !important; }
         </style>
         <a href="https://www.goodreads.com/quotes/list/174013085-lak" target="_blank" rel="noopener" class="goodreads-link" style="margin-top:1rem;">See all quotes ↗</a>
+        <div class="botanical-wrap" id="botanical">
+          <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+            <!-- Stem 1 -->
+            <path d="M80 180 Q85 140 75 100 Q70 70 80 40" stroke="#6B8F6E" stroke-width="1.5" fill="none" opacity="0.7"/>
+            <!-- Stem 2 -->
+            <path d="M140 180 Q148 145 138 105 Q130 75 145 35" stroke="#6B8F6E" stroke-width="1.5" fill="none" opacity="0.6"/>
+            <!-- Stem 3 -->
+            <path d="M200 180 Q195 150 205 115 Q212 85 200 50" stroke="#4A6741" stroke-width="1.2" fill="none" opacity="0.5"/>
+            <!-- Stem 4 small -->
+            <path d="M240 180 Q244 160 238 135 Q233 115 240 90" stroke="#7A9C73" stroke-width="1" fill="none" opacity="0.45"/>
+
+            <!-- Leaf 1 - large left -->
+            <g class="leaf" style="transform-origin:80px 100px">
+              <path d="M80 100 Q50 80 35 55 Q55 65 80 100Z" fill="#6B8F6E" opacity="0.5"/>
+              <path d="M80 100 Q60 75 50 50" stroke="#4A6741" stroke-width="0.8" fill="none" opacity="0.6"/>
+            </g>
+            <!-- Leaf 1b right -->
+            <g class="leaf leaf-2" style="transform-origin:80px 80px">
+              <path d="M80 80 Q108 62 122 40 Q100 52 80 80Z" fill="#7A9C73" opacity="0.45"/>
+              <path d="M80 80 Q102 58 115 38" stroke="#4A6741" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </g>
+
+            <!-- Leaf 2 - mid -->
+            <g class="leaf leaf-3" style="transform-origin:140px 85px">
+              <path d="M140 85 Q112 68 100 45 Q122 58 140 85Z" fill="#4A6741" opacity="0.4"/>
+              <path d="M140 85 Q115 65 104 44" stroke="#3A5C3E" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </g>
+            <g class="leaf leaf-2" style="transform-origin:140px 65px">
+              <path d="M140 65 Q165 48 178 28 Q158 44 140 65Z" fill="#8FAF88" opacity="0.4"/>
+              <path d="M140 65 Q162 46 175 28" stroke="#6B8F6E" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </g>
+
+            <!-- Leaf 3 - right -->
+            <g class="leaf leaf-4" style="transform-origin:200px 90px">
+              <path d="M200 90 Q175 75 162 52 Q182 65 200 90Z" fill="#6B8F6E" opacity="0.35"/>
+            </g>
+            <g class="leaf leaf-5" style="transform-origin:200px 72px">
+              <path d="M200 72 Q222 55 234 35 Q215 50 200 72Z" fill="#4A6741" opacity="0.38"/>
+            </g>
+
+            <!-- Small accent leaves -->
+            <g class="leaf leaf-3" style="transform-origin:240px 110px">
+              <path d="M240 110 Q220 98 212 80 Q228 92 240 110Z" fill="#7A9C73" opacity="0.3"/>
+            </g>
+            <g class="leaf leaf-5" style="transform-origin:240px 95px">
+              <path d="M240 95 Q258 82 265 65 Q250 78 240 95Z" fill="#8FAF88" opacity="0.28"/>
+            </g>
+
+            <!-- Tiny dots / berries -->
+            <circle cx="78" cy="38" r="2.5" fill="#4A6741" opacity="0.5"/>
+            <circle cx="83" cy="33" r="1.8" fill="#6B8F6E" opacity="0.4"/>
+            <circle cx="145" cy="33" r="2.2" fill="#4A6741" opacity="0.45"/>
+            <circle cx="201" cy="48" r="2" fill="#6B8F6E" opacity="0.4"/>
+            <circle cx="241" cy="88" r="1.5" fill="#4A6741" opacity="0.35"/>
+
+            <!-- Ground line -->
+            <line x1="0" y1="179" x2="300" y2="179" stroke="#DDD8CF" stroke-width="0.5"/>
+          </svg>
+        </div>
       </div>
     </div>
   </section>

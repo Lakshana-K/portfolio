@@ -21,7 +21,7 @@
       --syne: 'Syne', sans-serif; --news: 'Newsreader', serif; --mono: 'Space Mono', monospace;
     }
     body { font-family: var(--news); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; font-weight: 300; }
-    .site-wrapper { max-width: 1400px; margin: 0 auto; box-shadow: 0 0 0 1px var(--line); }
+
 
     /* NAV */
     nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 52px; }
@@ -69,6 +69,18 @@
     .sec-header a { font-family: var(--mono); font-size: 0.58rem; color: var(--green); }
     .sec-header-sub { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); }
     .shelf-sublabel { font-family: var(--mono); font-size: 0.56rem; color: var(--ink-3); letter-spacing: 0.06em; margin-bottom: 1rem; }
+    .books-quotes { padding: 2rem; background: var(--white); }
+    .gr-quotes-wrap { margin-top: 0; }
+    .gr-quotes-wrap #gr_quote_body { font-family: var(--news) !important; font-size: 0.85rem !important; color: var(--ink-2) !important; line-height: 1.75 !important; }
+    .gr-quotes-wrap #gr_quote_body a { color: var(--green) !important; }
+    .gr-quotes-wrap #gr_quote_body blockquote { border-left: 2px solid var(--green-border) !important; padding-left: 1rem !important; margin-bottom: 1rem !important; font-style: italic !important; background: none !important; }
+    .curr-reading-strip { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); margin-top: 1.5rem; }
+    .curr-reading-cover { width: 44px; height: 64px; object-fit: cover; border: 1px solid var(--line); flex-shrink: 0; }
+    .curr-reading-cover-placeholder { width: 44px; height: 64px; background: var(--accent); border: 1px solid var(--line); flex-shrink: 0; }
+    .curr-reading-info {}
+    .curr-reading-label { font-family: var(--mono); font-size: 0.54rem; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .curr-reading-title { font-family: var(--news); font-size: 0.88rem; color: var(--ink); font-style: italic; }
+    .curr-reading-author { font-family: var(--mono); font-size: 0.58rem; color: var(--ink-3); margin-top: 0.15rem; }
     .goodreads-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-family: var(--syne); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); border-bottom: 1px solid var(--green-border); padding-bottom: 0.15rem; }
 
     /* ABOUT */
@@ -108,8 +120,8 @@
 
     /* BOOKS */
     .books-sec { border-bottom: 2px solid var(--ink); background: var(--white); }
-    .books-body { display: block; }
-    .books-shelf { padding: 2rem; }
+    .books-body { display: grid; grid-template-columns: 3fr 2fr; }
+    .books-shelf { padding: 2rem; border-right: 1px solid var(--line); }
     .gr_grid_container { display: flex; flex-wrap: wrap; gap: 7px; }
     .gr_grid_book_container { float: none !important; width: 58px !important; height: 86px !important; padding: 0 !important; overflow: hidden; border: 1px solid var(--line); transition: transform 0.2s; }
     .gr_grid_book_container:hover { transform: translateY(-3px); }
@@ -185,7 +197,6 @@
 </head>
 <body>
 
-  <div class="site-wrapper">
   <nav>
     <span class="logo">Lak.</span>
     <ul class="nav-links">
@@ -279,7 +290,7 @@
       </div>
       <div class="sidebar-item">
         <div class="sidebar-label">Reading</div>
-        <div class="sidebar-val">[Current book]</div>
+        <div class="sidebar-val" id="sidebar-reading-val">loading...</div>
       </div>
       <div class="sidebar-item">
         <!-- Swap this div for: <img src="your-photo.jpg" alt="Lakshana" class="about-photo"> -->
@@ -342,7 +353,7 @@
   <div class="now-sec">
     <span class="now-label">Right now →</span>
     <div class="now-items">
-      <div class="now-item"><span class="now-item-label">reading /</span><span class="now-item-val">[Current book]</span></div>
+      <div class="now-item"><span class="now-item-label">reading /</span><span class="now-item-val" id="now-reading-val">loading...</span></div>
       <div class="now-item"><span class="now-item-label">listening /</span><span class="now-item-val">[Artist you love]</span></div>
       <div class="now-item"><span class="now-item-label">building /</span><span class="now-item-val">[Current side project]</span></div>
     </div>
@@ -487,6 +498,40 @@
     );
     sections.forEach(s => navObs.observe(s));
   </script>
-  </div>
+
+  <script>
+    // Auto-sync "currently reading" from Goodreads RSS
+    (async () => {
+      try {
+        const rss = await fetch(
+          'https://api.rss2json.com/v1/api.json?rss_url=' +
+          encodeURIComponent('https://www.goodreads.com/user/updates_rss/174013085')
+        );
+        const data = await rss.json();
+        const items = data.items || [];
+        // Find currently-reading shelf update
+        const reading = items.find(i =>
+          i.title && i.title.toLowerCase().includes('currently reading')
+        );
+        if (reading) {
+          // Extract book title from title like "lak wants to read / is currently reading Book Title"
+          const match = reading.title.match(/currently reading (.+)/i);
+          const title = match ? match[1].trim() : reading.title;
+          document.querySelectorAll('#now-reading-val, #sidebar-reading-val').forEach(el => {
+            el.textContent = title;
+          });
+        } else {
+          // fallback - grab first item title as a hint
+          document.querySelectorAll('#now-reading-val, #sidebar-reading-val').forEach(el => {
+            el.textContent = '[update your Goodreads shelf]';
+          });
+        }
+      } catch(e) {
+        document.querySelectorAll('#now-reading-val, #sidebar-reading-val').forEach(el => {
+          el.textContent = '[Current book]';
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
